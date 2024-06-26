@@ -105,10 +105,10 @@ INSERT INTO Roles (Cargo) VALUES ('Paciente');
 INSERT INTO Roles (Cargo) VALUES ('Recepcionista');
 
 -- Users
-INSERT INTO User (Nombre, Clave, ConfirmClave, Correo, Id_rol) VALUES ('Juan Perez', 'clave123', 'clave123', 'juan@example.com', 1);
-INSERT INTO User (Nombre, Clave, ConfirmClave, Correo, Id_rol) VALUES ('Maria Lopez', 'clave456', 'clave456', 'maria@example.com', 2);
-INSERT INTO User (Nombre, Clave, ConfirmClave, Correo, Id_rol) VALUES ('Pedro Garcia', 'clave789', 'clave789', 'pedro@example.com', 3);
-INSERT INTO User (Nombre, Clave, ConfirmClave, Correo, Id_rol) VALUES ('Ana Torres', 'clave101', 'clave101', 'ana@example.com', 4);
+INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('JuanP', 'clave123', 'clave123', 'juan@example.com', 1, 'admin');
+INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('MariaL', 'clave456', 'clave456', 'maria@example.com', 2, 'paciente');
+INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('PedroG', 'clave789', 'clave789', 'pedro@example.com', 3, 'medico');
+INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('AnaT', 'clave101', 'clave101', 'ana@example.com', 4, 'recepcionista');
 
 -- Perfil
 INSERT INTO Perfil (Nombre, Apellidos, Celular, Direccion, Especialidad, Fecha, DNI, Id_Reportes, Id_Rol) VALUES ('Juan', 'Perez', '123456789', 'Calle Falsa 123', 'Cardiología', '2024-01-01', '12345678', 1, 1);
