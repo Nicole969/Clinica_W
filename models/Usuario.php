@@ -42,17 +42,18 @@ class Usuario
         return $resultado;
     }
 
-    public function crear($username, $password, $names, $lastNames, $type, $id_escuela)
+    public function crear($username, $password, $confirmarclave, $correo, $id_rol)
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "INSERT INTO usuario(username, password, nombres, apellidos, tipo, id_escuela) VALUES ('$username', '$password', '$names', '$lastNames', '$type', $id_escuela)";
+        $sql = "INSERT INTO user(Username, Clave, ConfirmClave, Correo, id_rol) 
+            VALUES ('$username', '$password', '$confirmarclave', '$correo', $id_rol)";
         $result = $conexion->exec($sql);
 
         if ($result > 0) {
-            $uc = new UsuarioController();
+            $uc = new AuthController();
             $uc->login($username, $password);
-            header("Location: main.php");
+            header("Location: home.php"); // que tan necesario es esto?
         } else {
             echo "Ocurrió un error, vuelva a intentarlo";
         }

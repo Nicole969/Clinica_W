@@ -1,5 +1,3 @@
-<?php require_once "layout/header.php"; ?>
-
 <div class="bg-gray-50 font-[sans-serif] text-[#333]">
     <div class="min-h-screen flex flex-col items-center justify-center py-6 px-4">
         <div class="max-w-md w-full border py-8 px-6 rounded border-gray-300 bg-white">
@@ -10,10 +8,11 @@
                 <input type="submit" name="submit" value="Login" class="w-full py-2.5 px-4 text-sm rounded text-white bg-sky-600 hover:bg-sky-700 focus:outline-none">
             </form>
         </div>
+        <div> <a href="register.php">Registrarse</a></div>
     </div>
 </div>
 
-<?php require_once "layout/footer.php"; ?>
+
 
 <?php
 if (isset($_POST['submit'])) {
@@ -21,6 +20,6 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
 
     require_once "controllers/AuthController.php";
-    $uc = new UsuarioController();
+    $uc = new AuthController();
     $uc->login($username, $password);
 }
