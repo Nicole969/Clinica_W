@@ -9,13 +9,6 @@ class UsuarioController
         $usuario = new Usuario();
         return $usuario->mostrar();
     }
-    public function register($username, $password, $names, $lastNames, $type)
-    {
-        $usuario = new Usuario();
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        $id_escuela = 1;
-        $usuario->crear($username, $password, $names, $lastNames, $type, $id_escuela);
-    }
 
     public function login($username, $password)
     {
@@ -28,9 +21,9 @@ class UsuarioController
         $password_bd = null;
 
         foreach ($usuarioValidado as $item) {
-            $usuario_id = $item["ID_User"];
-            $usuario_nombre = $item["Username"];
-            $password_bd = $item["Clave"];
+            $usuario_id = $item["id"];
+            $usuario_nombre = $item["nombres"] . " " . $item["apellidos"];
+            $password_bd = $item["password"];
             $tipo = $item["tipo"];
             $contador++;
         }
@@ -40,7 +33,7 @@ class UsuarioController
                 $_SESSION["id"] = $usuario_id;
                 $_SESSION["usuario"] = $usuario_nombre;
                 $_SESSION["tipo"] = $tipo;
-                header("Location: views/dashboard.php");
+                header("Location: usuarioMostrar.php");
             } else {
                 echo "contraseña no valida";
             }

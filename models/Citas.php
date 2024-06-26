@@ -2,14 +2,15 @@
 
 require_once "config/Conn.php";
 
-class Usuario
+class Citas
 {
-    private $username;
-    private $clave;
-    private $tipo;
-    private $confirmclave;
-    private $id_rol;
-    private $email;
+    private $asunto;
+    private $descripcion;
+    private $fecha;
+    private $hora;
+    private $tiempo;
+    private $estado;
+    private $id_user;
 
     public function __construct()
     {
@@ -40,22 +41,5 @@ class Usuario
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
-    }
-
-    public function crear($username, $password, $names, $lastNames, $type, $id_escuela)
-    {
-        $conn = new Conn();
-        $conexion = $conn->conectar();
-        $sql = "INSERT INTO usuario(username, password, nombres, apellidos, tipo, id_escuela) VALUES ('$username', '$password', '$names', '$lastNames', '$type', $id_escuela)";
-        $result = $conexion->exec($sql);
-
-        if ($result > 0) {
-            $uc = new UsuarioController();
-            $uc->login($username, $password);
-            header("Location: main.php");
-        } else {
-            echo "Ocurrió un error, vuelva a intentarlo";
-        }
-        $conn->cerrar();
     }
 }

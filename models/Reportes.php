@@ -41,21 +41,4 @@ class Usuario
         $conn->cerrar();
         return $resultado;
     }
-
-    public function crear($username, $password, $names, $lastNames, $type, $id_escuela)
-    {
-        $conn = new Conn();
-        $conexion = $conn->conectar();
-        $sql = "INSERT INTO usuario(username, password, nombres, apellidos, tipo, id_escuela) VALUES ('$username', '$password', '$names', '$lastNames', '$type', $id_escuela)";
-        $result = $conexion->exec($sql);
-
-        if ($result > 0) {
-            $uc = new UsuarioController();
-            $uc->login($username, $password);
-            header("Location: main.php");
-        } else {
-            echo "Ocurrió un error, vuelva a intentarlo";
-        }
-        $conn->cerrar();
-    }
 }
