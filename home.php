@@ -11,8 +11,10 @@ if ($_SESSION["tipo"] == "admin") {
     header("location: dashboard.php");
 }
 
-require_once "layout/header.php";
 ?>
 
-<a href="logout.php">Cerrar sesion</a>
+<?php
+require_once 'layout/header.php';
+require_once 'layout/nav.php';
+?>
 <h2>ERES PACIENTE O DOC? soy <?php echo $_SESSION["tipo"] ?></h2>

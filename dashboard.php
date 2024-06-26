@@ -17,6 +17,10 @@ if ($_SESSION["tipo"] == "paciente") {
 }
 
 ?>
+<?php
+require_once 'layout/header.php';
+require_once 'layout/nav.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +33,6 @@ if ($_SESSION["tipo"] == "paciente") {
 
 <body>
 
-    <a href="logout.php">Cerrar sesion</a>
     <h2>ERES PACIENTE O DOC? soy <?php echo $_SESSION["tipo"] ?></h2>
     <table>
         <thead>

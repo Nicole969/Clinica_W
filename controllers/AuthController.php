@@ -12,7 +12,7 @@ class AuthController
     public function register($username, $password, $confirmarClave, $correo, $type)
     {
         $usuario = new Usuario();
-        $password = password_hash($password, PASSWORD_BCRYPT);
+        $password = password_hash($password, PASSWORD_DEFAULT);
         $id_rol = 1;
         $usuario->crear($username, $password, $confirmarClave, $correo, $id_rol, $type);
     }
@@ -30,12 +30,12 @@ class AuthController
         foreach ($usuarioValidado as $item) {
             $usuario_id = $item["ID_User"];
             $usuario_nombre = $item["Username"];
-            $password_bd = $item["Clave"];
+            $password_bd = $item["ConfirmClave"];
             $tipo = $item["tipo"];
             $contador++;
         }
         if ($contador > 0) {
-            if (password_verify($password, $password_bd)) {
+            if ($password == $password_bd) { //password_verify($password, $password_bd)
                 session_start();
                 $_SESSION["id"] = $usuario_id;
                 $_SESSION["usuario"] = $usuario_nombre;

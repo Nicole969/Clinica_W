@@ -1,20 +1,21 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenida a la DuoDent</title>
+    <title>Bienvenid@ a la DuoDent</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100">
-    
+
     <?php
-        require_once 'layout/nav.php';
+    require_once 'layout/nav.php';
     ?>
-   <!-- Banner y Contenido Principal -->
-   <main class="bg-cover bg-center bg-gradient-to-b from-blue-300 to-white bg-opacity-75 py-3 md:py-6">
+    <!-- Banner y Contenido Principal -->
+    <main class="bg-cover bg-center bg-gradient-to-b from-blue-300 to-white bg-opacity-75 py-3 md:py-6">
         <div class="py-30">
             <div class="container mx-auto flex flex-col md:flex-row items-center justify-start text-white px-6">
                 <div class="md:w-2/4 md:pr-8"> <!-- Columna para el texto y botones -->
@@ -56,7 +57,8 @@
 
 
     <?php
-        require_once 'layout/footer.php';
+    require_once 'layout/footer.php';
     ?>
 </body>
+
 </html>
