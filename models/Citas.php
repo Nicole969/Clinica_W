@@ -4,13 +4,12 @@ require_once "config/Conn.php";
 
 class Citas
 {
-    private $asunto;
-    private $descripcion;
-    private $fecha;
-    private $hora;
-    private $tiempo;
-    private $estado;
-    private $id_user;
+    private $username;
+    private $clave;
+    private $tipo;
+    private $confirmclave;
+    private $id_rol;
+    private $correo;
 
     public function __construct()
     {
@@ -27,17 +26,7 @@ class Citas
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM user";
-        $resultado = $conexion->query($sql);
-        $conn->cerrar();
-        return $resultado;
-    }
-
-    public function login($username)
-    {
-        $conn = new Conn();
-        $conexion = $conn->conectar();
-        $sql = "SELECT * FROM user WHERE username = '$username' ";
+        $sql = "SELECT * FROM citas";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;

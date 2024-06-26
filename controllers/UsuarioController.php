@@ -4,11 +4,26 @@ require_once "models/Usuario.php";
 
 class UsuarioController
 {
-    public function mostrar()
+    public function mostrarTodos()
     {
         $usuario = new Usuario();
         return $usuario->mostrar();
     }
+
+    public function mostrarPaciente()
+    {
+        $tipo = 'paciente';
+        $usuario = new Usuario();
+        return $usuario->mostrarPorTipo($tipo);
+    }
+
+    public function mostrarMedicos()
+    {
+        $usuario = new Usuario();
+        return $usuario->mostrarPorTipo('medico');
+    }
+
+
 
     public function login($username, $password)
     {

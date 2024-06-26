@@ -9,7 +9,7 @@ class Usuario
     private $tipo;
     private $confirmclave;
     private $id_rol;
-    private $email;
+    private $correo;
 
     public function __construct()
     {
@@ -30,6 +30,27 @@ class Usuario
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
+    }
+
+    public function mostrarPorTipo($tipo)
+    {
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+        $resultados = [];
+        $sql = "SELECT * FROM user WHERE tipo = ?";
+        $stmt = $conexion->prepare($sql);
+
+        // Vincular el parámetro 'tipo'
+        if ($stmt->execute([$tipo])) {
+            // Obtener los resultados
+            while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $resultados[] = $fila; // Añadir cada usuario a la lista
+            }
+        } else {
+            error_log('Error al ejecutar la consulta: ' . $stmt->errorInfo()[2]);
+        }
+
+        return $resultados;
     }
 
     public function login($username)
