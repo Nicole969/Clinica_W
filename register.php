@@ -1,6 +1,5 @@
 <?php
 require_once 'layout/header.php';
-require_once 'layout/nav.php';
 ?>
 
 <div class="bg-gray-50 font-[sans-serif] text-[#333]">
