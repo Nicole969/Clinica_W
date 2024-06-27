@@ -1,28 +1,74 @@
 <?php
 require_once 'layout/header.php';
 require_once 'layout/nav.php';
+
+
 ?>
-<div class="bg-gray-50 font-[sans-serif] text-[#333]">
-    <div class="min-h-screen flex flex-col items-center justify-center py-6 px-4">
-        <div class="max-w-md w-full border py-8 px-6 rounded border-gray-300 bg-white">
-            <h4 class="flex flex-col items-center font-bold">LOGIN</h4>
-            <form method="post" action=<?php echo $_SERVER["PHP_SELF"]; ?> class="mt-6 space-y-4">
-                <input type="text" name="username" class="w-full text-sm px-4 py-3 rounded outline-none border-2 focus:border-sky-500" placeholder="Ingrese username"> <br>
-                <input type="password" name="password" required class="w-full text-sm px-4 py-3 rounded outline-none border-2 focus:border-sky-500" placeholder="Ingrese password"> <br>
-                <input type="submit" name="submit" value="Login" class="w-full py-2.5 px-4 text-sm rounded text-blue bg-sky-600 hover:bg-sky-700 focus:outline-none">
-            </form>
+
+<div class="bg-gradient-to-r from-blue-200 via-blue-100 to-blue-200 flex items-center justify-center min-h-screen">
+    <div class="max-w-md w-full bg-white border border-gray-200 p-10 rounded-xl shadow-2xl">
+        <h4 class="text-center text-3xl mb-8 text-gray-700">Iniciar <span class="text-blue-400"> Sesión</span></h4>
+        <div class="flex justify-center mb-6">
+            <img src="images/dental.png" alt="Imagen" class="w-1/4 h-auto">
         </div>
+
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="space-y-6 flex flex-col items-center">
+            <!-- Mostrar mensaje de error si existe -->
+             <?php
+             $error = '';
+             if (isset($_POST['submit'])) {
+                 $username = $_POST['username'];
+                 $password = $_POST['password'];
+             
+                 require_once "controllers/AuthController.php";
+                 $uc = new AuthController();
+                 $error = $uc->login($username, $password);
+             }
+             ?>
+            <?php if ($error): ?>
+                <div class="w-2/3 bg-red-100 text-red-700 border border-red-400 p-3 rounded mb-6 text-center">
+                    <?php echo $error; ?>
+                </div>
+            <?php endif; ?>
+            
+            <div class="flex items-center flex-col space-y-2">
+                <a>Ingresar usuario:</a>
+                <input type="text" name="username" class="w-full text-lg px-5 py-2 rounded-md outline-none border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-center" placeholder="Example" required>
+            </div>
+            
+            <div class="flex items-center flex-col space-y-2 relative">
+                <a>Ingresar contraseña:</a>
+                <div class="relative w-full">
+                    <input type="password" name="password" id="password" class="w-full text-lg px-5 py-2 rounded-md outline-none border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-center" placeholder="**********" required>
+                    <span id="togglePassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            
+            <input type="submit" name="submit" value="Ingresar" class="w-1/2 py-2 text-lg rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 cursor-pointer transition duration-300 transform hover:-translate-y-1">
+        </form>
     </div>
 </div>
 
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+
+    togglePassword.addEventListener('click', function () {
+        // Toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        
+        // Toggle the icon
+        if (type === 'password') {
+            this.querySelector('i').classList.remove('fa-eye-slash');
+            this.querySelector('i').classList.add('fa-eye');
+        } else {
+            this.querySelector('i').classList.remove('fa-eye');
+            this.querySelector('i').classList.add('fa-eye-slash');
+        }
+    });
+</script>
 
 
-<?php
-if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    require_once "controllers/AuthController.php";
-    $uc = new AuthController();
-    $uc->login($username, $password);
-}

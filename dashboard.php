@@ -37,7 +37,7 @@ require_once 'layout/nav.php';
                 <div class="mx-auto flex max-w-xs flex-col gap-y-4">
                     <dt class="text-base leading-7 text-gray-600">Usuarios registrados</dt>
 
-                    4
+                    
                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"><?php echo $total_usuarios; ?></dd>
                 </div>
                 <div class="mx-auto flex max-w-xs flex-col gap-y-4">
