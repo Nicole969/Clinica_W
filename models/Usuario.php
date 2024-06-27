@@ -22,6 +22,16 @@ class Usuario
         $this->email = $email; */
     }
 
+    public function cantidadUser()
+    {
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+        $sql = "SELECT COUNT(*) FROM user";
+        $resultado = $conexion->query($sql);
+        $conn->cerrar();
+        return $resultado;
+    }
+
     public function mostrar()
     {
         $conn = new Conn();

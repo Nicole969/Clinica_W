@@ -10,6 +10,12 @@ class UsuarioController
         return $usuario->mostrar();
     }
 
+    public function cantidadUser()
+    {
+        $usuario = new Usuario();
+        return $usuario->cantidadUser();
+    }
+
     public function mostrarPaciente()
     {
         $tipo = 'paciente';

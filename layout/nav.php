@@ -7,7 +7,8 @@
                 <?php
                 switch ($_SESSION["tipo"]) {
                     case 'paciente': ?>
-                        <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-600">Mi citas</a>
+                        <a href="home.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Home</a>
+                        <a href="miscitas.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Mi citas</a>
                         <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
                         <div>
                             <a href="logout.php" class="bg-blue-600 text-white px-4 py-2 rounded-lg 
@@ -16,6 +17,7 @@
                         <?php break; ?>
                     <?php
                     case 'admin': ?>
+                        <a href="dashboard.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Panel</a>
                         <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-600">Medicos</a>
                         <a href="#" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
                         <div>
