@@ -15,12 +15,13 @@ class AuthController
         $password = password_hash($password, PASSWORD_DEFAULT);
         $id_rol = 1;
         $usuario->crear($username, $password, $confirmarClave, $correo, $id_rol, $type);
+        header("Location: login.php");
     }
 
-    public function login($username, $password)
+    public function login($correo, $password)
     {
         $usuario = new Usuario();
-        $usuarioValidado = $usuario->login($username);
+        $usuarioValidado = $usuario->login($correo);
 
         $contador = 0;
         $usuario_id = null;
@@ -54,7 +55,8 @@ class AuthController
                 echo "contraseña no valida";
             }
         } else {
-            echo "usuario y/o contraseña no validos";
+            echo "correo y/o contraseña no validos";
         }
     }
+    
 }

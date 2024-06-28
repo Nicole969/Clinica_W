@@ -1,7 +1,5 @@
 <?php
 require_once 'layout/header.php';
-
-
 ?>
 
 <div class="bg-gradient-to-r from-blue-200 via-blue-100 to-blue-200 flex items-center justify-center min-h-screen">
@@ -16,12 +14,12 @@ require_once 'layout/header.php';
             <?php
             $error = '';
             if (isset($_POST['submit'])) {
-                $username = $_POST['username'];
+                $correo = $_POST['correo'];
                 $password = $_POST['password'];
                 
                 require_once "controllers/AuthController.php";
                 $uc = new AuthController();
-                $error = $uc->login($username, $password);
+                $error = $uc->login($correo, $password);
             }
             ?>
             <?php if ($error): ?>
@@ -31,14 +29,15 @@ require_once 'layout/header.php';
             <?php endif; ?>
             
             <div class="flex flex-col space-y-2">
-                <label class="text-center">Ingresar usuario:</label>
-                <input type="text" name="username" class="w-full text-lg px-5 py-2 rounded-md outline-none border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-center" placeholder="Example" required>
+                <label class="text-center">Ingresar correo:</label>
+                <input type="text" name="correo" class="w-full text-md px-5 py-2 rounded-md outline-none 
+                border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-center" placeholder="example@gmail.com">
             </div>
             
             <div class="flex flex-col space-y-2">
                 <label class="text-center">Ingresar contraseña:</label>
                 <div class="relative w-full">
-                    <input type="password" name="password" id="password" class="w-full text-lg px-5 py-2 rounded-md outline-none border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-center" placeholder="**********" required>
+                    <input type="password" name="password" id="password" class="w-full text-md px-5 py-2 rounded-md outline-none border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-center" placeholder="**********" required>
                     <span id="togglePassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer">
                         <i class="fas fa-eye"></i>
                     </span>

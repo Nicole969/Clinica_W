@@ -63,11 +63,11 @@ class Usuario
         return $resultados;
     }
 
-    public function login($username)
+    public function login($correo)
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM user WHERE username = '$username' ";
+        $sql = "SELECT * FROM user WHERE correo = '$correo' ";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
