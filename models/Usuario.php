@@ -26,10 +26,11 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT COUNT(*) FROM user";
-        $resultado = $conexion->query($sql);
+        $sql = "SELECT COUNT(*) as total FROM user";
+        $stmt = $conexion->query($sql);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         $conn->cerrar();
-        return $resultado;
+        return $resultado['total'];
     }
 
     public function mostrar()

@@ -1,6 +1,6 @@
 <header class="text-black py-4">
-    <div class="container mx-auto flex justify-between items-center">
-        <a href="index.php" class="text-lg sm">DuoDent</a>
+    <div class="container mx-auto flex justify-between items-center px-4 md:px-14">
+        <a href="index.php" class="text-lg">DuoDent</a>
         <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
             <?php
             if (isset($_SESSION["tipo"])) { ?>

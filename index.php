@@ -17,7 +17,7 @@
     <!-- Banner y Contenido Principal -->
     <main class="bg-cover bg-center bg-gradient-to-b from-blue-300 to-white bg-opacity-75 py-3 md:py-6">
         <div class="py-30">
-            <div class="container mx-auto flex flex-col md:flex-row items-center justify-start text-white px-6">
+            <div class="container mx-auto flex flex-col md:flex-row items-center justify-start text-white px-2 md:px-14">
                 <div class="md:w-2/4 md:pr-8"> <!-- Columna para el texto y botones -->
                     <h2 class="text-5xl text-black mb-4">¡Bienvenido a la clínica DuoDent!</h2>
                     <div class="flex flex-col">
@@ -36,7 +36,7 @@
     </main>
 
     <section class="bg-white py-12">
-        <div class="container mx-auto px-6">
+        <div class="container mx-auto px-6 md:px-16">
             <h3 class="text-3xl text-gray-800 mb-6">Nuestros Servicios</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

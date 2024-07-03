@@ -9,6 +9,7 @@ $pacientes = $usuarioController->mostrarPaciente();
 $medicos = $usuarioController->mostrarMedicos();
 $citaController = new CitasController();
 $citas = $citaController->mostrar();
+$total_usuarios = $usuarioController->cantidadUser();
 
 session_start();
 
