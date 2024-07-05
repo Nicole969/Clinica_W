@@ -18,6 +18,12 @@ CREATE TABLE User (
     FOREIGN KEY (Id_rol) REFERENCES Roles(ID_Rol)
 );
 
+CREATE TABLE Area (
+    ID_Area INTEGER PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(100) NOT NULL,
+    Descripcion VARCHAR(255)
+);
+
 CREATE TABLE Perfil (
     ID_Perfil INTEGER PRIMARY KEY auto_increment,
     Nombre VARCHAR(50) NOT NULL,
@@ -29,6 +35,8 @@ CREATE TABLE Perfil (
     DNI VARCHAR(20),
     Id_Reportes INTEGER,
     Id_Rol INTEGER,
+    Id_Area INTEGER,
+    FOREIGN KEY (Id_Area) REFERENCES Area(ID_Area)
     FOREIGN KEY (Id_Rol) REFERENCES Roles(ID_Rol)
 );
 
@@ -47,7 +55,7 @@ CREATE TABLE Reportes (
 
 CREATE TABLE Horarios (
     ID_Horario INTEGER PRIMARY KEY auto_increment,
-    diaSemana VARCHAR(20),
+    diaSemana ENUM('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'),
     horaInicio TIME,
     horaFin TIME,
     Id_User INTEGER NOT NULL,
@@ -62,13 +70,20 @@ CREATE TABLE Citas (
     Hora TIME,
     Tiempo TIME,
     Estado VARCHAR(20),
-    Id_User INTEGER NOT NULL,
-    FOREIGN KEY (Id_User) REFERENCES User(ID_User)
+    ID_Paciente INTEGER NOT NULL,
+    ID_Medico INTEGER NOT NULL,
+    FOREIGN KEY (ID_Paciente) REFERENCES Paciente(ID_User),
+    FOREIGN KEY (ID_Medico) REFERENCES Medico(ID_User)
 );
 
 CREATE TABLE Historial_clinico (
     ID_Historial INTEGER PRIMARY KEY auto_increment,
     Fecha DATE,
+    Altura DECIMAL(5, 2),
+    Peso DECIMAL(5, 2),
+    Alergias VARCHAR(255),
+    EnfermedadesPrevias VARCHAR(255),
+    Observaciones TEXT,
     Descripcion VARCHAR(255),
     Id_User INTEGER NOT NULL,
     Id_Citas INTEGER,
@@ -89,51 +104,69 @@ CREATE TABLE Notificacion (
 
 CREATE TABLE Pagos (
     ID_Pago INTEGER PRIMARY KEY auto_increment,
-    Monto FLOAT,
-    Descuento FLOAT,
-    Saldo FLOAT,
-    Total FLOAT,
+    Monto DECIMAL(10, 2),
+    Descuento DECIMAL(10, 2),
+    Saldo DECIMAL(10, 2),
+    Total DECIMAL(10, 2),
+    FechaPago DATE NOT NULL,
+    MetodoPago VARCHAR(50),
+    ID_Cita INTEGER NOT NULL,
+    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita)
     Id_Paciente INTEGER,
     FOREIGN KEY (Id_Paciente) REFERENCES User(ID_User)
 );
 
 
--- Roles
+CREATE TABLE Cita_atencion (
+    ID_Cita INTEGER NOT NULL,
+    ID_Paciente INTEGER NOT NULL,
+    ID_Medico INTEGER NOT NULL,
+    PRIMARY KEY (ID_Cita, ID_Paciente),
+    FOREIGN KEY (ID_Paciente) REFERENCES Paciente(ID_User),
+    FOREIGN KEY (ID_Medico) REFERENCES Medico(ID_User)
+    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita),
+);
+
+-- Insertar datos en Roles
 INSERT INTO Roles (Cargo) VALUES ('Admin');
 INSERT INTO Roles (Cargo) VALUES ('Doctor');
 INSERT INTO Roles (Cargo) VALUES ('Paciente');
 INSERT INTO Roles (Cargo) VALUES ('Recepcionista');
 
--- Users
+-- Insertar datos en User
 INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('JuanP', 'clave123', 'clave123', 'juan@example.com', 1, 'admin');
 INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('MariaL', 'clave456', 'clave456', 'maria@example.com', 2, 'paciente');
 INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('PedroG', 'clave789', 'clave789', 'pedro@example.com', 3, 'medico');
 INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('AnaT', 'clave101', 'clave101', 'ana@example.com', 4, 'recepcionista');
 
--- Perfil
-INSERT INTO Perfil (Nombre, Apellidos, Celular, Direccion, Especialidad, Fecha, DNI, Id_Reportes, Id_Rol) VALUES ('Juan', 'Perez', '123456789', 'Calle Falsa 123', 'Cardiología', '2024-01-01', '12345678', 1, 1);
-INSERT INTO Perfil (Nombre, Apellidos, Celular, Direccion, Especialidad, Fecha, DNI, Id_Reportes, Id_Rol) VALUES ('Maria', 'Lopez', '987654321', 'Avenida Siempreviva 456', 'Pediatría', '2024-01-01', '87654321', 2, 2);
+-- Insertar datos en Perfil
+INSERT INTO Perfil (Nombre, Apellidos, Celular, Direccion, Especialidad, Fecha, DNI, Id_Reportes, Id_Rol, Id_Area) VALUES ('Juan', 'Perez', '123456789', 'Calle Falsa 123', 'Cardiología', '2024-01-01', '12345678', 1, 1, 1);
+INSERT INTO Perfil (Nombre, Apellidos, Celular, Direccion, Especialidad, Fecha, DNI, Id_Reportes, Id_Rol, Id_Area) VALUES ('Maria', 'Lopez', '987654321', 'Avenida Siempreviva 456', 'Pediatría', '2024-01-01', '87654321', 2, 2, 2);
 
--- Reportes
+-- Insertar datos en Reportes
 INSERT INTO Reportes (Numero, Folio, Siglas, Nombre, Ruta, Fecha, Hora, Id_User) VALUES (1, 1001, 'RP', 'Reporte 1', 'ruta1', '2024-06-01', '08:00:00', 1);
 INSERT INTO Reportes (Numero, Folio, Siglas, Nombre, Ruta, Fecha, Hora, Id_User) VALUES (2, 1002, 'RP', 'Reporte 2', 'ruta2', '2024-06-02', '09:00:00', 2);
 
--- Horarios
+-- Insertar datos en Horarios
 INSERT INTO Horarios (diaSemana, horaInicio, horaFin, Id_User) VALUES ('Lunes', '08:00:00', '17:00:00', 1);
 INSERT INTO Horarios (diaSemana, horaInicio, horaFin, Id_User) VALUES ('Martes', '08:00:00', '17:00:00', 2);
 
--- Citas
-INSERT INTO Citas (Asunto, Descripcion, Fecha, Hora, Tiempo, Estado, Id_User) VALUES ('Consulta General', 'Revisión anual', '2024-06-15', '10:00:00', '01:00:00', 'Pendiente', 3);
-INSERT INTO Citas (Asunto, Descripcion, Fecha, Hora, Tiempo, Estado, Id_User) VALUES ('Consulta Especialista', 'Consulta con cardiologo', '2024-06-20', '11:00:00', '01:30:00', 'Confirmada', 4);
+-- Insertar datos en Citas
+INSERT INTO Citas (Asunto, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente, ID_Medico) VALUES ('Consulta General', 'Revisión anual', '2024-06-15', '10:00:00', '01:00:00', 'Pendiente', 2, 3);
+INSERT INTO Citas (Asunto, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente, ID_Medico) VALUES ('Consulta Especialista', 'Consulta con cardiologo', '2024-06-20', '11:00:00', '01:30:00', 'Confirmada', 4, 1);
 
--- Historial_clinico
-INSERT INTO Historial_clinico (Fecha, Descripcion, Id_User, Id_Citas) VALUES ('2024-06-15', 'Paciente presenta buen estado de salud', 3, 1);
+-- Insertar datos en Historial_clinico
+INSERT INTO Historial_clinico (Fecha, Descripcion, Id_User, Id_Citas) VALUES ('2024-06-15', 'Paciente presenta buen estado de salud', 2, 1);
 INSERT INTO Historial_clinico (Fecha, Descripcion, Id_User, Id_Citas) VALUES ('2024-06-20', 'Requiere seguimiento por especialista', 4, 2);
 
--- Notificacion
-INSERT INTO Notificacion (Tipo, Mensaje, FechaEnvio, Id_User, Id_Citas) VALUES ('Recordatorio', 'Su cita es mañana a las 10:00 am', '2024-06-14', 3, 1);
+-- Insertar datos en Notificacion
+INSERT INTO Notificacion (Tipo, Mensaje, FechaEnvio, Id_User, Id_Citas) VALUES ('Recordatorio', 'Su cita es mañana a las 10:00 am', '2024-06-14', 2, 1);
 INSERT INTO Notificacion (Tipo, Mensaje, FechaEnvio, Id_User, Id_Citas) VALUES ('Recordatorio', 'Su cita es mañana a las 11:00 am', '2024-06-19', 4, 2);
 
--- Pagos
-INSERT INTO Pagos (Monto, Descuento, Saldo, Total, Id_Paciente) VALUES (100.0, 10.0, 90.0, 100.0, 3);
-INSERT INTO Pagos (Monto, Descuento, Saldo, Total, Id_Paciente) VALUES (200.0, 20.0, 180.0, 200.0, 4);
+-- Insertar datos en Pagos
+INSERT INTO Pagos (Monto, Descuento, Saldo, Total, FechaPago, MetodoPago, ID_Cita, Id_Paciente) VALUES (100.0, 10.0, 90.0, 100.0, '2024-06-15', 'Tarjeta', 1, 2);
+INSERT INTO Pagos (Monto, Descuento, Saldo, Total, FechaPago, MetodoPago, ID_Cita, Id_Paciente) VALUES (200.0, 20.0, 180.0, 200.0, '2024-06-20', 'Efectivo', 2, 4);
+
+-- Insertar datos en Cita_atencion
+INSERT INTO Cita_atencion (ID_Cita, ID_Paciente, ID_Medico) VALUES (1, 2, 3);
+INSERT INTO Cita_atencion (ID_Cita, ID_Paciente, ID_Medico) VALUES (2, 4, 1);
