@@ -28,3 +28,6 @@ require_once 'layout/header.php';
 require_once 'layout/nav.php';
 ?>
 
+<div class="bg-gray-100 h-full">
+
+</div>

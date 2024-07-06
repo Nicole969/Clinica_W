@@ -30,7 +30,7 @@ require_once 'layout/nav.php';
 ?>
 
 
-<div class="bg-gray-100">
+<div class="bg-gray-100 h-full">
 
     <div class="bg-gray-100 py-4">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">

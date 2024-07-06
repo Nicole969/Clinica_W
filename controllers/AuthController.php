@@ -31,6 +31,7 @@ class AuthController
         foreach ($usuarioValidado as $item) {
             $usuario_id = $item["ID_User"];
             $usuario_nombre = $item["Username"];
+            $correo = $item["Correo"];
             $password_bd = $item["ConfirmClave"];
             $tipo = $item["tipo"];
             $contador++;
@@ -45,6 +46,10 @@ class AuthController
                     case 'paciente':
                         # code...
                         header("Location: home.php");
+                        break;
+                    case 'medico':
+                        # code...
+                        header("Location: medicos.php");
                         break;
                     default:
                         header("Location: dashboard.php");

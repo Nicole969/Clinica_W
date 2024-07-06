@@ -12,7 +12,7 @@ require_once 'layout/header.php';
             <div class="flex flex-col space-y-2">
                 <label class="text-center">Ingresar usuario:</label>
                 <input type="text" id="username"  name="username" class="w-full text-md px-5 py-2 rounded-md outline-none 
-                border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-center" placeholder="">
+                border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-center" placeholder="Example">
             </div>
 
             <div id="email-error-message" class="text-red-500 text-center hidden">Por favor, ingrese un correo válido.</div>
