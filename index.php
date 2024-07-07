@@ -19,7 +19,7 @@
         <div class="py-30">
             <div class="container mx-auto flex flex-col md:flex-row items-center justify-start text-white px-2 md:px-14">
                 <div class="md:w-2/4 md:pr-8"> <!-- Columna para el texto y botones -->
-                    <h2 class="text-5xl text-black mb-4">¡Bienvenido a la clínica DuoDent!</h2>
+                    <h2 class="text-5xl text-black mb-4">¡Bienvenido a la clínica W!</h2>
                     <div class="flex flex-col">
                         <p class="text-md text-black mb-4">Agenda tu cita de manera fácil y accesible desde cualquier lugar. Por favor, navega a través de nuestro sitio para encontrar la información y los servicios que necesitas.</p>
                         <div class="flex space-x-4">
