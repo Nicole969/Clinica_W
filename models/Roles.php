@@ -2,7 +2,7 @@
 
 require_once "config/Conn.php";
 
-class Usuario
+class Roles
 {
     private $username;
     private $clave;
