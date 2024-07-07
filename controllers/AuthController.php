@@ -9,18 +9,20 @@ class AuthController
         $usuario = new Usuario();
         return $usuario->mostrar();
     }
+
     public function register($username, $password, $confirmarClave, $correo, $type)
     {
         $usuario = new Usuario();
         $password = password_hash($password, PASSWORD_DEFAULT);
         $id_rol = 1;
         $usuario->crear($username, $password, $confirmarClave, $correo, $id_rol, $type);
+        header("Location: login.php");
     }
 
-    public function login($username, $password)
+    public function login($correo, $password)
     {
         $usuario = new Usuario();
-        $usuarioValidado = $usuario->login($username);
+        $usuarioValidado = $usuario->login($correo);
 
         $contador = 0;
         $usuario_id = null;
@@ -30,6 +32,7 @@ class AuthController
         foreach ($usuarioValidado as $item) {
             $usuario_id = $item["ID_User"];
             $usuario_nombre = $item["Username"];
+            $correo = $item["Correo"];
             $password_bd = $item["ConfirmClave"];
             $tipo = $item["tipo"];
             $contador++;
@@ -45,6 +48,10 @@ class AuthController
                         # code...
                         header("Location: home.php");
                         break;
+                    case 'medico':
+                        # code...
+                        header("Location: medicos.php");
+                        break;
                     default:
                         header("Location: dashboard.php");
                         # code...
@@ -54,7 +61,7 @@ class AuthController
                 echo "contraseña no valida";
             }
         } else {
-            echo "usuario y/o contraseña no validos";
+            echo "correo y/o contraseña no validos";
         }
     }
 }

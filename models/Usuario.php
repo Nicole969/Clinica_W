@@ -26,10 +26,11 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT COUNT(*) FROM user";
-        $resultado = $conexion->query($sql);
+        $sql = "SELECT COUNT(*) as total FROM user";
+        $stmt = $conexion->query($sql);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         $conn->cerrar();
-        return $resultado;
+        return $resultado['total'];
     }
 
     public function mostrar()
@@ -37,6 +38,18 @@ class Usuario
         $conn = new Conn();
         $conexion = $conn->conectar();
         $sql = "SELECT * FROM user";
+        $resultado = $conexion->query($sql);
+        $conn->cerrar();
+        return $resultado;
+    }
+
+    public function llamar_r()
+    {
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+        $sql = "SELECT user.ID_User, user.Username, roles.Cargo 
+                FROM user
+                JOIN roles ON user.Id_rol = roles.ID_Rol";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
@@ -63,11 +76,11 @@ class Usuario
         return $resultados;
     }
 
-    public function login($username)
+    public function login($correo)
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM user WHERE username = '$username' ";
+        $sql = "SELECT * FROM user WHERE Correo = '$correo' ";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;

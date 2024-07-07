@@ -19,4 +19,28 @@ class Notificaciones
         $conn->cerrar();
         return $resultado;
     }
+
+    public function obtenerNotificaciones()
+    {
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+
+        $sql = "SELECT notificacion.ID_Notificacion, notificacion.Tipo, notificacion.Mensaje, notificacion.FechaEnvio, notificacion.Id_User, notificacion.Id_Citas, 
+                citas.Fecha AS CitaFecha, citas.Asunto AS CitaAsunto, user.Username AS Usuario
+                FROM notificacion
+                JOIN citas ON notificacion.Id_Citas = citas.ID_Cita
+                JOIN user ON notificacion.Id_User = user.ID_User";
+
+        $resultado = $conexion->query($sql);
+
+        $notificaciones = [];
+        if ($resultado) {
+            while ($row = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                $notificaciones[] = $row;
+            }
+        }
+
+        $conn->cerrar();
+        return $notificaciones;
+    }
 }
