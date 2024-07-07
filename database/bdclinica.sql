@@ -36,7 +36,7 @@ CREATE TABLE Perfil (
     Id_Reportes INTEGER,
     Id_Rol INTEGER,
     Id_Area INTEGER,
-    FOREIGN KEY (Id_Area) REFERENCES Area(ID_Area)
+    FOREIGN KEY (Id_Area) REFERENCES Area(ID_Area),
     FOREIGN KEY (Id_Rol) REFERENCES Roles(ID_Rol)
 );
 
@@ -58,6 +58,7 @@ CREATE TABLE Horarios (
     diaSemana ENUM('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'),
     horaInicio TIME,
     horaFin TIME,
+    Estado VARCHAR(20),
     Id_User INTEGER NOT NULL,
     FOREIGN KEY (Id_User) REFERENCES User(ID_User)
 );
@@ -72,8 +73,8 @@ CREATE TABLE Citas (
     Estado VARCHAR(20),
     ID_Paciente INTEGER NOT NULL,
     ID_Medico INTEGER NOT NULL,
-    FOREIGN KEY (ID_Paciente) REFERENCES Paciente(ID_User),
-    FOREIGN KEY (ID_Medico) REFERENCES Medico(ID_User)
+    FOREIGN KEY (ID_Paciente) REFERENCES User(ID_User),
+    FOREIGN KEY (ID_Medico) REFERENCES User(ID_User)
 );
 
 CREATE TABLE Historial_clinico (
@@ -111,7 +112,7 @@ CREATE TABLE Pagos (
     FechaPago DATE NOT NULL,
     MetodoPago VARCHAR(50),
     ID_Cita INTEGER NOT NULL,
-    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita)
+    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita),
     Id_Paciente INTEGER,
     FOREIGN KEY (Id_Paciente) REFERENCES User(ID_User)
 );
@@ -122,9 +123,9 @@ CREATE TABLE Cita_atencion (
     ID_Paciente INTEGER NOT NULL,
     ID_Medico INTEGER NOT NULL,
     PRIMARY KEY (ID_Cita, ID_Paciente),
-    FOREIGN KEY (ID_Paciente) REFERENCES Paciente(ID_User),
-    FOREIGN KEY (ID_Medico) REFERENCES Medico(ID_User)
-    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita),
+    FOREIGN KEY (ID_Paciente) REFERENCES User(ID_User),
+    FOREIGN KEY (ID_Medico) REFERENCES User(ID_User),
+    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita)
 );
 
 -- Insertar datos en Roles
@@ -138,6 +139,11 @@ INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('
 INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('MariaL', 'clave456', 'clave456', 'maria@example.com', 2, 'paciente');
 INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('PedroG', 'clave789', 'clave789', 'pedro@example.com', 3, 'medico');
 INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol, tipo) VALUES ('AnaT', 'clave101', 'clave101', 'ana@example.com', 4, 'recepcionista');
+
+-- Inserta más áreas
+INSERT INTO Area (Nombre, Descripcion) VALUES ('Cardiología', 'Especialidad en problemas cardíacos');
+INSERT INTO Area (Nombre, Descripcion) VALUES ('Pediatría', 'Especialidad en atención infantil');
+
 
 -- Insertar datos en Perfil
 INSERT INTO Perfil (Nombre, Apellidos, Celular, Direccion, Especialidad, Fecha, DNI, Id_Reportes, Id_Rol, Id_Area) VALUES ('Juan', 'Perez', '123456789', 'Calle Falsa 123', 'Cardiología', '2024-01-01', '12345678', 1, 1, 1);
