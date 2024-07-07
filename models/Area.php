@@ -2,16 +2,17 @@
 
 require_once dirname(__DIR__) . "/config/Conn.php";
 
-class Role
+class Area
 {
-    private $id_rol;
-    private $cargo;
+    private $id_area;
+    private $nombre;
+    private $descripcion;
 
     public function mostrar()
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM Roles";
+        $sql = "SELECT * FROM Area";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
