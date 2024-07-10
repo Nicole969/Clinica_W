@@ -1,17 +1,12 @@
 <?php
 
-require_once '../lib/Route.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once '../autoload.php';
+require_once '../routes/web.php';
 
 use Lib\Route;
 
-Route::get('/', function () {
-    echo "Hola mundo";
-});
-
-Route::get('/hola', function () {
-    echo "Hola";
-});
-
-Route::get('/hola/{name}', function ($name) {
-    echo "Hola $name";
-});
+Route::dispatch();
