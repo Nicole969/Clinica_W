@@ -28,7 +28,7 @@ class Citas
         $conn = new Conn();
         $conexion = $conn->conectar();
         $resultados = [];
-        $sql = "SELECT * FROM Citas WHERE Id_User = ?";
+        $sql = "SELECT * FROM Citas WHERE ID_Paciente = ?";
         $stmt = $conexion->prepare($sql);
 
         // Vincular el parámetro 'id'
@@ -48,7 +48,7 @@ class Citas
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "INSERT INTO Citas(Asunto, Descripcion, Fecha, Hora, Tiempo, Estado, Id_User) 
+        $sql = "INSERT INTO Citas(Asunto, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente) 
             VALUES ('$asunto','$descripcion', '$fecha', '$hora', '$tiempo', '$estado', $id_user)";
         $resultado = $conexion->exec($sql);
 

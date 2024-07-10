@@ -26,7 +26,7 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT COUNT(*) as total FROM user";
+        $sql = "SELECT COUNT(*) as total FROM Users";
         $stmt = $conexion->query($sql);
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         $conn->cerrar();
@@ -37,7 +37,7 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM user";
+        $sql = "SELECT * FROM Users";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
@@ -47,9 +47,9 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT user.ID_User, user.Username, roles.Cargo 
-                FROM user
-                JOIN roles ON user.Id_rol = roles.ID_Rol";
+        $sql = "SELECT Users.ID_User, Users.Username, Roles.Cargo 
+                FROM Users
+                JOIN Roles ON Users.Id_rol = Roles.ID_Rol";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
@@ -60,7 +60,7 @@ class Usuario
         $conn = new Conn();
         $conexion = $conn->conectar();
         $resultados = [];
-        $sql = "SELECT * FROM user WHERE tipo = ?";
+        $sql = "SELECT * FROM Users WHERE Tipo = ?";
         $stmt = $conexion->prepare($sql);
 
         // Vincular el parámetro 'tipo'
@@ -80,7 +80,7 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM user WHERE Correo = '$correo' ";
+        $sql = "SELECT * FROM users WHERE Correo = '$correo' ";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;

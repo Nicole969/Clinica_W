@@ -33,7 +33,7 @@ class AuthController
             $usuario_nombre = $item["Username"];
             $correo = $item["Correo"];
             $password_bd = $item["ConfirmClave"];
-            $tipo = $item["tipo"];
+            $tipo = $item["Tipo"];
             $contador++;
         }
         if ($contador > 0) {

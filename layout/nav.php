@@ -13,7 +13,7 @@
             if (isset($_SESSION["tipo"])) { ?>
                 <?php
                 switch ($_SESSION["tipo"]) {
-                    case 'paciente': ?>
+                    case 'Paciente': ?>
                         <a href="home.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Home</a>
                         <a href="miscitas.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Mi citas</a>
                         <a href="perfil.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
@@ -23,7 +23,7 @@
                         </div>
                         <?php break; ?>
                     <?php
-                    case 'admin': ?>
+                    case 'Admin': ?>
                         <a href="dashboard.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Panel</a>
                         <a href="admedicos.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Medicos</a>
                         <a href="perfil.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
