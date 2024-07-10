@@ -63,12 +63,12 @@ CREATE TABLE Reportes (
 );
 
 CREATE TABLE Horarios (
-    ID_Horario INTEGER PRIMARY KEY AUTO_INCREMENT,
-    DiaSemana ENUM('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'),
-    HoraInicio TIME,
-    HoraFin TIME,
-    ID_User INTEGER,
-    FOREIGN KEY (ID_User) REFERENCES Users(ID_User)
+    ID_Horario INTEGER PRIMARY KEY auto_increment,
+    diaSemana ENUM('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'),
+    horaInicio TIME,
+    horaFin TIME,
+    Id_User INTEGER NOT NULL,
+    FOREIGN KEY (Id_User) REFERENCES User(ID_User)
 );
 
 CREATE TABLE Citas (
@@ -187,9 +187,9 @@ CREATE TABLE Pagos (
     FechaPago DATE NOT NULL,
     MetodoPago VARCHAR(50),
     ID_Cita INTEGER NOT NULL,
-    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita),
-    ID_Paciente INTEGER,
-    FOREIGN KEY (ID_Paciente) REFERENCES Users(ID_User)
+    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita)
+    Id_Paciente INTEGER,
+    FOREIGN KEY (Id_Paciente) REFERENCES User(ID_User)
 );
 
 CREATE TABLE Cita_Atencion (
@@ -197,9 +197,9 @@ CREATE TABLE Cita_Atencion (
     ID_Paciente INTEGER NOT NULL,
     ID_Medico INTEGER NOT NULL,
     PRIMARY KEY (ID_Cita, ID_Paciente),
-    FOREIGN KEY (ID_Paciente) REFERENCES Users(ID_User),
-    FOREIGN KEY (ID_Medico) REFERENCES Users(ID_User),
-    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita)
+    FOREIGN KEY (ID_Paciente) REFERENCES Paciente(ID_User),
+    FOREIGN KEY (ID_Medico) REFERENCES Medico(ID_User)
+    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita),
 );
 
 -- Insertar datos en Roles
