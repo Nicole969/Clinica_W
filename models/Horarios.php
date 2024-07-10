@@ -4,20 +4,30 @@ require_once "config/Conn.php";
 
 class Horarios
 {
-    public function crearHorario($diaSemana, $horaInicio, $horaFin, $id_user)
+    public function crearHorario($diaSemana, $horaInicio, $horaFin, $Id_User)
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM Horarios";
-        $resultado = $conexion->query($sql);
-        $conn->cerrar();
+
+        $sql = "INSERT INTO Horarios (diaSemana, horaInicio, horaFin, Id_User) VALUES (?, ?, ?, ?)";
+        $stmt = $conexion->prepare($sql);
+
+        // Ejecutar la consulta con los parámetros proporcionados
+        if ($stmt->execute([$diaSemana, $horaInicio, $horaFin, $Id_User])) {
+            $conn->cerrar();
+            return true;
+        } else {
+            error_log('Error al ejecutar la consulta: ' . $stmt->errorInfo()[2]);
+            $conn->cerrar();
+            return false;
+        }
     }
 
-    public function mostrar() {
+    public function mostrar()
+    {
         $conn = new Conn();
         $conexion = $conn->conectar();
 
-        // Query para obtener los horarios
         $sql = "SELECT * FROM Horarios";
         $stmt = $conexion->prepare($sql);
         $stmt->execute();
@@ -46,6 +56,8 @@ class Horarios
         } else {
             error_log('Error al ejecutar la consulta: ' . $stmt->errorInfo()[2]);
         }
+
+        $conn->cerrar();
 
         return $resultados;
     }

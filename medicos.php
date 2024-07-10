@@ -27,10 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $diaSemana = $_POST['diaSemana'];
     $horaInicio = $_POST['horaInicio'];
     $horaFin = $_POST['horaFin'];
-    $id_user = $_POST['id_user'];
+    $Id_User = $_POST['id_user'];
 
     $horariosModel = new Horarios();
-    if ($horariosModel->crearHorario($diaSemana, $horaInicio, $horaFin, $id_user)) {
+    if ($horariosModel->crearHorario($diaSemana, $horaInicio, $horaFin, $Id_User)) {
         // Redirigir para evitar la reenvío del formulario
         header("Location: " . $_SERVER['PHP_SELF']);
         exit;
@@ -46,38 +46,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require_once 'layout/nav.php';
     ?>
 
-    <main class="bg-cover bg-center bg-gradient-to-b from-blue-300 to-white bg-opacity-75 py-3 md:py-6 h-screen px-4">
+<main class="bg-cover bg-center bg-gradient-to-b from-blue-300 to-white bg-opacity-75 py-3 md:py-6 h-screen px-4">
         <div class="flex justify-end">
-            <div class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-4">
+            <div class="bg-white shadow-md rounded-lg p-6 max-w-md mx-4">
                 <?php if ($_SESSION["tipo"] == "medico"): ?>
                     <!-- Botón del formulario -->
-                    <div class="flex justify-end">
-                        <div onclick="mostrarFormularioHorario()" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md cursor-pointer transition transform hover:-translate-y-1">
+                    <div class="flex justify-end mb-4">
+                        <div onclick="mostrarFormularioHorario()" class="bg-blue-500 hover:bg-blue-700 text-white text-sm py-2 px-3 rounded-md cursor-pointer transition transform hover:-translate-y-1">
                             Ingresar Horario
                         </div>
                     </div>
                 <?php endif; ?>
 
-                <h2 class="text-xl mt-4 mb-4">Mi Horario</h2>
+                <h2 class="text-xl mt-4 mb-4">Mis Horarios</h2>
                 <div class="overflow-x-auto">
-                    <table class="w-full divide-y divide-gray-200">
-                        <thead class="bg-black">
-                            <tr>
-                                <th class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">Día</th>
-                                <th class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">Horario de Inicio</th>
-                                <th class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">Horario Final</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <?php foreach ($horarios as $horario) : ?>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center"><?php echo $horario["diaSemana"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center"><?php echo $horario["horaInicio"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center"><?php echo $horario["horaFin"] ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                    <?php foreach ($horarios as $index => $horario) : ?>
+                        <!-- Modal para cada horario -->
+                        <div class="bg-white p-8 w-full relative border-t-4 border-blue-500">
+                            <div class="flex flex-col items-start">
+                                <p class="text-md"><strong>Día:</strong> <?php echo $horario["diaSemana"]; ?></p>
+                                <p class="text-md"><?php echo $horario["horaInicio"] . ' - ' . $horario["horaFin"]; ?></p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
 
                 <!-- Formulario Modal -->
@@ -124,18 +115,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
 
                         </form>
-
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </main>
 
     <script>
-        function mostrarFormularioHorario() {
+         function mostrarFormularioHorario() {
             var modal = document.getElementById('formularioHorarioModal');
             modal.style.display = 'flex'; // Mostrar el modal
         }
