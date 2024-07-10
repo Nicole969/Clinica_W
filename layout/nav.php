@@ -1,9 +1,9 @@
 <?php
 
-    require_once "controllers/NotificacionController.php";
+require_once "controllers/NotificacionController.php";
 
-    $noti = new NotificacionController();
-    $notificaciones = $noti->obtenerNotificaciones();
+$noti = new NotificacionController();
+$notificaciones = $noti->obtenerNotificaciones();
 ?>
 <header class="text-black py-4">
     <div class="container mx-auto flex justify-between items-center px-4 md:px-14">
@@ -37,8 +37,8 @@
 
                             <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
 
-                                <?php if (!empty($notificaciones)): ?>
-                                    <?php foreach ($notificaciones as $notificacion): ?>
+                                <?php if (!empty($notificaciones)) : ?>
+                                    <?php foreach ($notificaciones as $notificacion) : ?>
                                         <a href="#" class="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
                                             <p><?php echo $notificacion['Mensaje']; ?></p>
                                             <small>Cita: <?php echo $notificacion['CitaAsunto']; ?> el <?php echo $notificacion['CitaFecha']; ?></small>
@@ -46,9 +46,9 @@
                                         </a>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
-                                        <a href="notificaciones.php" class="block px-4 py-2 text-sm capitalize bg-blue-500 text-white text-center
+                                <a href="notificaciones.php" class="block px-4 py-2 text-sm capitalize bg-blue-500 text-white text-center
                                             hover:bg-blue-200">
-                                        VER TODAS</a>
+                                    VER TODAS</a>
                             </div>
 
                         </div>

@@ -8,18 +8,8 @@ class Horarios
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-
-        $sql = "INSERT INTO Horarios (diaSemana, horaInicio, horaFin, Id_User) VALUES ('$diaSemana', '$horaInicio', '$horaFin', $id_user)";
-        $result = $conexion->exec($sql);
-
-        if ($result > 0) {
-            // Aquí podrías agregar lógica adicional si es necesario, pero sin redirección
-            return true;
-        } else {
-            echo "Ocurrió un error, vuelva a intentarlo";
-            return false;
-        }
-
+        $sql = "SELECT * FROM Horarios";
+        $resultado = $conexion->query($sql);
         $conn->cerrar();
     }
 
