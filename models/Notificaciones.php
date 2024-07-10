@@ -19,14 +19,14 @@ class Notificaciones
         $conn->cerrar();
         return $resultado;
     }
-    
+
     public function obtenerNotificaciones()
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
 
         $sql = "SELECT Notificaciones.ID_Notificacion, Notificaciones.Tipo, Notificaciones.Mensaje, Notificaciones.FechaEnvio, Notificaciones.Id_User, Notificaciones.Id_Cita, 
-                Citas.Fecha_Cr AS Fecha, Citas.Title AS Asunto, Users.Username AS Usuario
+                Citas.Fecha_Cr AS CitaFecha, Citas.Title AS CitaAsunto, Users.Username AS Usuario
                 FROM Notificaciones
                 JOIN Citas ON Notificaciones.Id_Cita = Citas.ID_Cita
                 JOIN Users ON Notificaciones.Id_User = Users.ID_User";
@@ -43,5 +43,4 @@ class Notificaciones
         $conn->cerrar();
         return $notificaciones;
     }
-
 }

@@ -38,7 +38,7 @@ require_once 'layout/nav.php';
                 <div class="mx-auto flex max-w-xs flex-col gap-y-4">
                     <dt class="text-base leading-7 text-gray-600">Usuarios registrados</dt>
 
-                    
+
                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"><?php echo $total_usuarios; ?></dd>
                 </div>
                 <div class="mx-auto flex max-w-xs flex-col gap-y-4">
@@ -73,7 +73,7 @@ require_once 'layout/nav.php';
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $paciente["Username"] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $paciente["Correo"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $paciente["tipo"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $paciente["Tipo"] ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -98,7 +98,7 @@ require_once 'layout/nav.php';
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $medico["Username"] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $medico["Correo"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $medico["tipo"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $medico["Tipo"] ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -136,10 +136,10 @@ require_once 'layout/nav.php';
                             ?>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap<?php echo $estadoClass ?>"><?php echo $cita["Estado"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Asunto"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Title"] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Descripcion"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Fecha"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Hora"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Fecha_Cr"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Hora_Inicial"] ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
