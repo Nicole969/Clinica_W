@@ -15,7 +15,9 @@ class Citas
     private $fecha_up;
     private $descripcion;
     private $estado;
-    private $id_user;
+    private $id_paciente;
+    private $id_medico;
+    private $id_servicio;
 
 
     public function mostrar()
@@ -49,13 +51,14 @@ class Citas
         return $resultados;
     }
 
-    public function crear($title,$start,$end,$color,$hora_inicial,$hora_final,$fecha_cr,$fecha_up,$descripcion,$estado,$id_user)
+    public function crear($title,$start,$end,$color,$hora_inicial,$hora_final,$fecha_cr,$fecha_up,$descripcion,$estado,$id_paciente,$id_medico,$id_servicio)
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "INSERT INTO Citas(Asunto, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente) 
-            VALUES ('$asunto','$descripcion', '$fecha', '$hora', '$tiempo', '$estado', $id_user)";
-        $resultado = $conexion->exec($sql);
+        $sql = "INSERT INTO Citas(Title,Start,End,Color,Hora_Inicial,Hora_Final,Fecha_Cr,Fecha_Up,Descripcion,Estado,ID_Paciente,ID_Medico,ID_Servicio) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conexion->prepare($sql);
+        $resultado = $stmt->execute([$title, $start, $end, $color, $hora_inicial, $hora_final, $fecha_cr, $fecha_up, $descripcion, $estado, $id_paciente, $id_medico, $id_servicio]);
 
         if ($resultado === false) {
             echo "Error al crear la cita";
