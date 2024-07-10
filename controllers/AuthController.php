@@ -43,16 +43,16 @@ class AuthController
                 $_SESSION["usuario"] = $usuario_nombre;
                 $_SESSION["tipo"] = $tipo;
                 switch ($tipo) {
-                    case 'paciente':
+                    case 'Admin':
                         # code...
-                        header("Location: home.php");
+                        header("Location: dashboard.php");
                         break;
-                    case 'medico':
+                    case 'Doctor':
                         # code...
                         header("Location: medicos.php");
                         break;
                     default:
-                        header("Location: dashboard.php");
+                        header("Location: home.php");
                         # code...
                         break;
                 }
