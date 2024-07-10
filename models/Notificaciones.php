@@ -14,7 +14,7 @@ class Notificaciones
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM notificacion";
+        $sql = "SELECT * FROM Notificaciones";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
@@ -27,9 +27,9 @@ class Notificaciones
 
         $sql = "SELECT notificacion.ID_Notificacion, notificacion.Tipo, notificacion.Mensaje, notificacion.FechaEnvio, notificacion.Id_User, notificacion.Id_Citas, 
                 citas.Fecha AS CitaFecha, citas.Asunto AS CitaAsunto, user.Username AS Usuario
-                FROM notificacion
-                JOIN citas ON notificacion.Id_Citas = citas.ID_Cita
-                JOIN user ON notificacion.Id_User = user.ID_User";
+                FROM Notificaciones
+                JOIN Citas ON notificacion.Id_Citas = citas.ID_Cita
+                JOIN Users ON notificacion.Id_User = user.ID_User";
 
         $resultado = $conexion->query($sql);
 

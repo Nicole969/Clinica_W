@@ -13,7 +13,7 @@ class Horarios
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM horarios";
+        $sql = "SELECT * FROM Horarios";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;

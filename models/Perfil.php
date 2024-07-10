@@ -18,7 +18,7 @@ class Perfil
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM perfil";
+        $sql = "SELECT * FROM Perfiles";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;

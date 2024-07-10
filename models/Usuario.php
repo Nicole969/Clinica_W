@@ -90,7 +90,7 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "INSERT INTO user(Username, Clave, ConfirmClave, Correo, id_rol) 
+        $sql = "INSERT INTO Users(Username, Clave, ConfirmClave, Correo, ID_Rol) 
             VALUES ('$username', '$password', '$confirmarclave', '$correo', $id_rol)";
         $result = $conexion->exec($sql);
 
