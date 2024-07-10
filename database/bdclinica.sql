@@ -77,18 +77,79 @@ CREATE TABLE Citas (
     Start DATE,
     End DATE, 
     Color VARCHAR(50),
-    Hora VARCHAR(100),
+    Hora_Inicial Time,
+    Hora_Final Time,
     Fecha_Cr DATETIME,
     Fecha_Up DATETIME,
     Descripcion VARCHAR(255),
-    Fecha DATE,
-    Hora TIME,
-    Tiempo TIME,
     Estado VARCHAR(20),
-    ID_Paciente INTEGER NOT NULL,
-    ID_Medico INTEGER NOT NULL,
-    FOREIGN KEY (ID_Paciente) REFERENCES Paciente(ID_User),
-    FOREIGN KEY (ID_Medico) REFERENCES Medico(ID_User)
+    ID_Paciente INTEGER,
+    ID_Medico INTEGER,
+    ID_Servicio INTEGER,
+    FOREIGN KEY (ID_Paciente) REFERENCES Users(ID_User),
+    FOREIGN KEY (ID_Medico) REFERENCES Users(ID_User),
+    FOREIGN KEY (ID_Servicio) REFERENCES Servicios(ID_Servicio)
+);
+
+CREATE TABLE Tipos_Medicamentos (
+    ID_TipoMedi INTEGER PRIMARY KEY AUTO_INCREMENT,
+    NomTipoMed VARCHAR(50) NOT NULL,
+    Descripcion VARCHAR(255)
+);
+
+CREATE TABLE Medicamentos (
+    ID_Medi INTEGER PRIMARY KEY AUTO_INCREMENT,
+    NombreMedi VARCHAR(100) NOT NULL,
+    Presentacion VARCHAR(100) NOT NULL,
+    Fabricacion VARCHAR(100) NOT NULL,
+    PreCompra DECIMAL(10,2) NOT NULL,
+    PrecVenta DECIMAL(10,2) NOT NULL,
+    Stock INT NOT NULL,
+    FechProduccion DATE NOT NULL,
+    FechVencimiento DATE NOT NULL,
+    ID_TipoMedi INTEGER NOT NULL,
+    FOREIGN KEY (ID_TipoMedi) REFERENCES Tipos_Medicamentos(ID_TipoMedi)
+);
+
+CREATE TABLE Tratamientos (
+    ID_Tratam INTEGER PRIMARY KEY AUTO_INCREMENT,
+    Cantidad INT,
+    Dosis VARCHAR(50),
+    Duracion VARCHAR(50),
+    ID_Medico INTEGER,
+    ID_Cita INTEGER,
+    FOREIGN KEY (ID_Medico) REFERENCES Users(ID_User),
+    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita)
+);
+
+CREATE TABLE Comprobantes (
+    ID_Comp INTEGER PRIMARY KEY AUTO_INCREMENT,
+    FechaPago DATETIME NOT NULL,
+    MontoComp DECIMAL(10, 2) NOT NULL,
+    Descripcion VARCHAR(255),
+    ID_User INTEGER,
+    FOREIGN KEY (ID_User) REFERENCES Users(ID_User)
+);
+
+CREATE TABLE Detalles_Comprobante (
+    ID_DetalleComp INTEGER PRIMARY KEY AUTO_INCREMENT,
+    CantUnidVta INT NOT NULL,
+    PrecUnitVta DECIMAL(10,2),
+    SubTotal DECIMAL(10,2),
+    ID_Comp INTEGER,
+    ID_Servicio INTEGER,
+    FOREIGN KEY (ID_Comp) REFERENCES Comprobantes(ID_Comp),
+    FOREIGN KEY (ID_Servicio) REFERENCES Servicios(ID_Servicio)
+);
+
+CREATE TABLE Recetas (
+    ID_Receta INTEGER PRIMARY KEY AUTO_INCREMENT,
+    Fecha DATE,
+    Descripcion VARCHAR(255),
+    ID_User INTEGER,
+    ID_Cita INTEGER,
+    FOREIGN KEY (ID_User) REFERENCES Users(ID_User),
+    FOREIGN KEY (ID_Cita) REFERENCES Citas(ID_Cita)
 );
 
 CREATE TABLE Historial_Clinico (
@@ -174,9 +235,13 @@ INSERT INTO Horarios (DiaSemana, HoraInicio, HoraFin, ID_User) VALUES ('Martes',
 INSERT INTO Horarios (DiaSemana, HoraInicio, HoraFin, ID_User) VALUES ('Miércoles', '08:00:00', '17:00:00', 3);
 
 -- Insertar datos en Citas
-INSERT INTO Citas (Title, Start, End, Color, Hora, Fecha_Cr, Fecha_Up, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente, ID_Medico, ID_Servicio) VALUES ('Consulta General', '2024-06-15', '2024-06-15', 'Azul', '10:00:00', '2024-06-01 08:00:00', '2024-06-01 08:00:00', 'Revisión anual', '2024-06-15', '10:00:00', '01:00:00', 'Pendiente', 2, 3, 1);
-INSERT INTO Citas (Title, Start, End, Color, Hora, Fecha_Cr, Fecha_Up, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente, ID_Medico, ID_Servicio) VALUES ('Consulta Especialista', '2024-06-20', '2024-06-20', 'Rojo', '11:00:00', '2024-06-02 09:00:00', '2024-06-02 09:00:00', 'Consulta con cardiologo', '2024-06-20', '11:00:00', '01:30:00', 'Confirmada', 4, 1, 2);
-INSERT INTO Citas (Title, Start, End, Color, Hora, Fecha_Cr, Fecha_Up, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente, ID_Medico, ID_Servicio) VALUES ('Examen de Sangre', '2024-07-01', '2024-07-01', 'Verde', '09:00:00', '2024-06-15 10:00:00', '2024-06-15 10:00:00', 'Análisis de sangre completo', '2024-07-01', '09:00:00', '00:30:00', 'Pendiente', 3, 2, 3);
+
+INSERT INTO Citas (Title, Start, End, Color, Hora_Inicial, Hora_Final, Fecha_Cr, Fecha_Up, Descripcion, Estado, ID_Paciente, ID_Medico, ID_Servicio) 
+VALUES ('Consulta General', '2024-06-15', '2024-06-15', '#0639A7', '08:00:00','09:00:00', '2024-06-01 08:00:00', '2024-06-01 08:00:00', 'Revisión anual', 'Pendiente', 2, 3, 1);
+INSERT INTO Citas (Title, Start, End, Color,  Hora_Inicial, Hora_Final, Fecha_Cr, Fecha_Up, Descripcion, Estado, ID_Paciente, ID_Medico, ID_Servicio) 
+VALUES ('Consulta Especialista', '2024-06-20', '2024-06-20', '#17A706', '08:00:00', '09:00:00' ,'2024-06-02 09:00:00', '2024-06-02 09:00:00', 'Consulta con cardiologo', 'Confirmada', 4, 1, 2);
+INSERT INTO Citas (Title, Start, End, Color, Hora_Inicial, Hora_Final, Fecha_Cr, Fecha_Up, Descripcion, Estado, ID_Paciente, ID_Medico, ID_Servicio)
+VALUES ('Examen de Sangre', '2024-07-01', '2024-07-01', '#6506A7', '08:00:00','09:00:00', '2024-06-15 10:00:00','2024-06-15 10:00:00', 'Análisis de sangre completo', 'Pendiente', 3, 2, 3);
 
 -- Insertar datos en Tipos_Medicamentos
 INSERT INTO Tipos_Medicamentos (NomTipoMed, Descripcion) VALUES ('Analgésico', 'Medicamento para aliviar el dolor.');
