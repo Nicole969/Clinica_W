@@ -47,9 +47,9 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT users.ID_User, users.Username, roles.Cargo 
+        $sql = "SELECT users.ID_User, users.Username, Roles.Cargo 
                 FROM users
-                JOIN roles ON users.Id_rol = roles.ID_Rol";
+                JOIN Roles ON users.Id_rol = Roles.ID_Rol";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
@@ -60,7 +60,7 @@ class Usuario
         $conn = new Conn();
         $conexion = $conn->conectar();
         $resultados = [];
-        $sql = "SELECT * FROM users WHERE tipo = ?";
+        $sql = "SELECT * FROM users WHERE Tipo = ?";
         $stmt = $conexion->prepare($sql);
 
         // Vincular el parámetro 'tipo'
@@ -90,8 +90,8 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "INSERT INTO Users(Username, Clave, ConfirmClave, Correo, ID_Rol) 
-            VALUES ('$username', '$password', '$confirmarclave', '$correo', $id_rol)";
+        $sql = "INSERT INTO users(Username, Clave, ConfirmClave, Correo, ID_Rol, Tipo) 
+            VALUES ('$username', '$password', '$confirmarclave', '$correo', $id_rol, 'paciente')";
         $result = $conexion->exec($sql);
 
         if ($result > 0) {

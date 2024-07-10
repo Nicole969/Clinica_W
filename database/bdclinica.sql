@@ -203,16 +203,16 @@ CREATE TABLE Cita_Atencion (
 );
 
 -- Insertar datos en Roles
-INSERT INTO Roles (Cargo) VALUES ('Admin');
-INSERT INTO Roles (Cargo) VALUES ('Doctor');
-INSERT INTO Roles (Cargo) VALUES ('Paciente');
-INSERT INTO Roles (Cargo) VALUES ('Recepcionista');
+INSERT INTO Roles (Cargo) VALUES ('admin');
+INSERT INTO Roles (Cargo) VALUES ('medico');
+INSERT INTO Roles (Cargo) VALUES ('paciente');
+INSERT INTO Roles (Cargo) VALUES ('recepcionista');
 
 -- Insertar datos en Users
-INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('JuanP', 'clave123', 'clave123', 'juan@example.com', 'Admin', 1);
-INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('MariaL', 'clave456', 'clave456', 'maria@example.com', 'Paciente', 2);
-INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('PedroG', 'clave789', 'clave789', 'pedro@example.com', 'Doctor', 3);
-INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('AnaT', 'clave101', 'clave101', 'ana@example.com', 'Recepcionista', 4);
+INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('JuanP', 'clave123', 'clave123', 'juan@example.com', 'admin', 1);
+INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('MariaL', 'clave456', 'clave456', 'maria@example.com', 'paciente', 3);
+INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('PedroG', 'clave789', 'clave789', 'pedro@example.com', 'medico', 2);
+INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('AnaT', 'clave101', 'clave101', 'ana@example.com', 'recepcionista', 4);
 
 -- Insertar datos en Areas
 INSERT INTO Areas (Nombre, Descripcion) VALUES ('Cardiología', 'Especialidad médica que se ocupa del diagnóstico y tratamiento de las enfermedades del corazón.');
