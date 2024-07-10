@@ -4,11 +4,16 @@ require_once "config/Conn.php";
 
 class Citas
 {
-    private $asunto;
+
+    private $title;
+    private $start;
+    private $end;
+    private $color;
+    private $hora_inicial;
+    private $hora_final;
+    private $fecha_cr;
+    private $fecha_up;
     private $descripcion;
-    private $fecha;
-    private $hora;
-    private $tiempo;
     private $estado;
     private $id_user;
 
@@ -28,7 +33,7 @@ class Citas
         $conn = new Conn();
         $conexion = $conn->conectar();
         $resultados = [];
-        $sql = "SELECT * FROM Citas WHERE Id_User = ?";
+        $sql = "SELECT * FROM Citas WHERE Id_Paciente = ?";
         $stmt = $conexion->prepare($sql);
 
         // Vincular el parámetro 'id'
@@ -44,12 +49,12 @@ class Citas
         return $resultados;
     }
 
-    public function crear($asunto, $descripcion, $fecha, $hora, $tiempo, $estado, $id_user)
+    public function crear($title,$start,$end,$color,$hora_inicial,$hora_final,$fecha_cr,$fecha_up,$descripcion,$estado,$id_user)
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "INSERT INTO Citas(Asunto, Descripcion, Fecha, Hora, Tiempo, Estado, Id_User) 
-            VALUES ('$asunto','$descripcion', '$fecha', '$hora', '$tiempo', '$estado', $id_user)";
+        $sql = "INSERT INTO Citas(Title,Start,End,Color,Hora_Inicial,Hora_Final,Fecha_Cr,Fecha_Up,Descripcion,Estado,Id_User) 
+            VALUES ('$title','$start','$end','$color','$hora_inicial','$hora_final','$fecha_cr','$fecha_up','$descripcion','$estado','$id_user')";
         $resultado = $conexion->exec($sql);
 
         if ($resultado === false) {

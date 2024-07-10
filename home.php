@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["asunto"])) {
 
     // Crea una instancia del controlador y llama al método agregar
     $citasController = new CitasController();
-    $resultado = $citasController->agregar($asunto, $descripcion, $fecha, $hora,$tiempo, $estado, $id_user);
+    $resultado = $citasController->agregar($title,$start,$end,$color,$hora_inicial,$hora_final,$fecha_cr,$fecha_up,$descripcion,$estado,$id_user);
     header('Location: home.php');
     exit;
 }
@@ -42,11 +42,11 @@ require_once 'layout/nav.php';
 ?>
 <div class="bg-gray-100 h-full">
     <div class ="mx-auto max-w-7xl px-6 lg:px-8">
-        <!--AGREGAR CITA-->
+        <!--AGREGAR CITA
         <button onclick="mostrarFormulario()">Agendar Nueva Cita</button>
             <dialog id = "formularioCita" class = "rounded-3xl border-2 " >
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                        <!-- Botón de cierre -->
+                         Botón de cierre 
                         <button onclick="cerrarFormulario()" style="float: right; font-size: 20px; line-height: 20px; cursor: pointer;">✕</button>
                         <form action="" method="post">
                             <div>
@@ -81,10 +81,27 @@ require_once 'layout/nav.php';
                             </div>
                         </form>
                     </div>
-            </dialog>
+            </dialog>-->
+            
     <?php
-
-    ?>
+        if (isset($_SESSION["tipo"])) { ?>
+            <?php
+            switch ($_SESSION["tipo"]) {
+                case 'Paciente': ?>
+                    <a href="home.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Home</a>
+                    <a href="miscitas.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Mi citas</a>
+                    <a href="perfil.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
+                    <div>
+                        <a href="logout.php" class="bg-blue-600 text-white px-4 py-2 rounded-lg 
+                            hover:bg-blue-700 block md:inline-block">Cerrar Sesión</a>
+                    </div>
+                    <?php break; ?>
+                <?php
+                case 'admin': ?>
+                <?php break; 
+                }
+                } else {} ?>
+            
     
         <section class="our-services">
             <div class="container">
@@ -106,8 +123,8 @@ require_once 'layout/nav.php';
 
                     foreach ($vercita as $cita) {
                         $eventos[] = [
-                            'Fecha' => $cita['Fecha'], // Año-Mes-Día
-                            'Hora' => $cita['Hora'], // Hora:Minuto
+                            'Start'=>$cita['Start'], // Año-Mes-Día
+                            'Hora_Inicial' => $cita['Hora_Inicial'], // Hora:Minuto
                             'Descripcion' => $cita['Descripcion']
                         ];
                         
@@ -134,7 +151,18 @@ require_once 'layout/nav.php';
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+          initialView: 'dayGridMonth',
+          locale:'es',
+          events:[
+            {
+                Asunto: 'aaa',
+                start: '2024-07-07',
+                end: '2024-07-09',
+                Descripcion: 'aadzc',
+                Estado: 'aaas'
+
+            }
+          ]
         });
         calendar.render();
       });

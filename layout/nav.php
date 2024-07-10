@@ -2,8 +2,8 @@
 
     require_once "controllers/NotificacionController.php";
 
-    $noti = new NotificacionController();
-    $notificaciones = $noti->obtenerNotificaciones();
+   /* $noti = new NotificacionController(); 
+    $notificaciones = $noti->obtenerNotificaciones(); */
 ?>
 <header class="text-black py-4">
     <div class="container mx-auto flex justify-between items-center px-4 md:px-14">
