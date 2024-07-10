@@ -77,20 +77,18 @@ CREATE TABLE Citas (
     Start DATE,
     End DATE, 
     Color VARCHAR(50),
-    Hora VARCHAR(100),
+    Hora_Inicial Time,
+    Hora_Final Time,
     Fecha_Cr DATETIME,
     Fecha_Up DATETIME,
     Descripcion VARCHAR(255),
-    Fecha DATE,
-    Hora TIME,
-    Tiempo TIME,
     Estado VARCHAR(20),
     ID_Paciente INTEGER,
     ID_Medico INTEGER,
     ID_Servicio INTEGER,
     FOREIGN KEY (ID_Paciente) REFERENCES Users(ID_User),
-    FOREIGN KEY (ID_Medico) REFERENCES Users(ID_User)
-    FOREIGN KEY (ID_Servicio) REFERENCES Servicios(ID_Servicio),
+    FOREIGN KEY (ID_Medico) REFERENCES Users(ID_User),
+    FOREIGN KEY (ID_Servicio) REFERENCES Servicios(ID_Servicio)
 );
 
 CREATE TABLE Tipos_Medicamentos (
@@ -205,16 +203,16 @@ CREATE TABLE Cita_Atencion (
 );
 
 -- Insertar datos en Roles
-INSERT INTO Roles (Cargo) VALUES ('Admin');
-INSERT INTO Roles (Cargo) VALUES ('Doctor');
-INSERT INTO Roles (Cargo) VALUES ('Paciente');
-INSERT INTO Roles (Cargo) VALUES ('Recepcionista');
+INSERT INTO Roles (Cargo) VALUES ('admin');
+INSERT INTO Roles (Cargo) VALUES ('medico');
+INSERT INTO Roles (Cargo) VALUES ('paciente');
+INSERT INTO Roles (Cargo) VALUES ('recepcionista');
 
 -- Insertar datos en Users
-INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('JuanP', 'clave123', 'clave123', 'juan@example.com', 'Admin', 1);
-INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('MariaL', 'clave456', 'clave456', 'maria@example.com', 'Paciente', 2);
-INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('PedroG', 'clave789', 'clave789', 'pedro@example.com', 'Doctor', 3);
-INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('AnaT', 'clave101', 'clave101', 'ana@example.com', 'Recepcionista', 4);
+INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('JuanP', 'clave123', 'clave123', 'juan@example.com', 'admin', 1);
+INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('MariaL', 'clave456', 'clave456', 'maria@example.com', 'paciente', 3);
+INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('PedroG', 'clave789', 'clave789', 'pedro@example.com', 'medico', 2);
+INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Tipo, ID_Rol) VALUES ('AnaT', 'clave101', 'clave101', 'ana@example.com', 'recepcionista', 4);
 
 -- Insertar datos en Areas
 INSERT INTO Areas (Nombre, Descripcion) VALUES ('Cardiología', 'Especialidad médica que se ocupa del diagnóstico y tratamiento de las enfermedades del corazón.');
@@ -242,9 +240,13 @@ INSERT INTO Horarios (DiaSemana, HoraInicio, HoraFin, ID_User) VALUES ('Martes',
 INSERT INTO Horarios (DiaSemana, HoraInicio, HoraFin, ID_User) VALUES ('Miércoles', '08:00:00', '17:00:00', 3);
 
 -- Insertar datos en Citas
-INSERT INTO Citas (Title, Start, End, Color, Hora, Fecha_Cr, Fecha_Up, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente, ID_Medico, ID_Servicio) VALUES ('Consulta General', '2024-06-15', '2024-06-15', 'Azul', '10:00:00', '2024-06-01 08:00:00', '2024-06-01 08:00:00', 'Revisión anual', '2024-06-15', '10:00:00', '01:00:00', 'Pendiente', 2, 3, 1);
-INSERT INTO Citas (Title, Start, End, Color, Hora, Fecha_Cr, Fecha_Up, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente, ID_Medico, ID_Servicio) VALUES ('Consulta Especialista', '2024-06-20', '2024-06-20', 'Rojo', '11:00:00', '2024-06-02 09:00:00', '2024-06-02 09:00:00', 'Consulta con cardiologo', '2024-06-20', '11:00:00', '01:30:00', 'Confirmada', 4, 1, 2);
-INSERT INTO Citas (Title, Start, End, Color, Hora, Fecha_Cr, Fecha_Up, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente, ID_Medico, ID_Servicio) VALUES ('Examen de Sangre', '2024-07-01', '2024-07-01', 'Verde', '09:00:00', '2024-06-15 10:00:00', '2024-06-15 10:00:00', 'Análisis de sangre completo', '2024-07-01', '09:00:00', '00:30:00', 'Pendiente', 3, 2, 3);
+
+INSERT INTO Citas (Title, Start, End, Color, Hora_Inicial, Hora_Final, Fecha_Cr, Fecha_Up, Descripcion, Estado, ID_Paciente, ID_Medico, ID_Servicio) 
+VALUES ('Consulta General', '2024-06-15', '2024-06-15', '#0639A7', '08:00:00','09:00:00', '2024-06-01 08:00:00', '2024-06-01 08:00:00', 'Revisión anual', 'Pendiente', 2, 3, 1);
+INSERT INTO Citas (Title, Start, End, Color,  Hora_Inicial, Hora_Final, Fecha_Cr, Fecha_Up, Descripcion, Estado, ID_Paciente, ID_Medico, ID_Servicio) 
+VALUES ('Consulta Especialista', '2024-06-20', '2024-06-20', '#17A706', '08:00:00', '09:00:00' ,'2024-06-02 09:00:00', '2024-06-02 09:00:00', 'Consulta con cardiologo', 'Confirmada', 4, 1, 2);
+INSERT INTO Citas (Title, Start, End, Color, Hora_Inicial, Hora_Final, Fecha_Cr, Fecha_Up, Descripcion, Estado, ID_Paciente, ID_Medico, ID_Servicio)
+VALUES ('Examen de Sangre', '2024-07-01', '2024-07-01', '#6506A7', '08:00:00','09:00:00', '2024-06-15 10:00:00','2024-06-15 10:00:00', 'Análisis de sangre completo', 'Pendiente', 3, 2, 3);
 
 -- Insertar datos en Tipos_Medicamentos
 INSERT INTO Tipos_Medicamentos (NomTipoMed, Descripcion) VALUES ('Analgésico', 'Medicamento para aliviar el dolor.');

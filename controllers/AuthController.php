@@ -33,7 +33,7 @@ class AuthController
             $usuario_nombre = $item["Username"];
             $correo = $item["Correo"];
             $password_bd = $item["ConfirmClave"];
-            $tipo = $item["tipo"];
+            $tipo = $item["Tipo"];
             $contador++;
         }
         if ($contador > 0) {
@@ -43,16 +43,16 @@ class AuthController
                 $_SESSION["usuario"] = $usuario_nombre;
                 $_SESSION["tipo"] = $tipo;
                 switch ($tipo) {
-                    case 'paciente':
+                    case 'admin':
                         # code...
-                        header("Location: home.php");
+                        header("Location: dashboard.php");
                         break;
                     case 'medico':
                         # code...
                         header("Location: medicos.php");
                         break;
                     default:
-                        header("Location: dashboard.php");
+                        header("Location: home.php");
                         # code...
                         break;
                 }
@@ -63,5 +63,4 @@ class AuthController
             echo "correo y/o contraseña no validos";
         }
     }
-    
 }
