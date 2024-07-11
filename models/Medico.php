@@ -13,15 +13,12 @@ class Medico
     private $celular;
     private $direccion;
     private $especialidad;
-    private $fechaNac;
-    private $fechaContrato;
-    private $sueldoEmpleado;
+    private $fecha;
     private $dni;
-    private $idReportes;
-    private $idRol;
-    private $idArea;
+    private $id_area;
+    private $id_rol;
 
-    public function __construct($username, $clave, $confirmClave, $correo, $nombre, $apellidos, $celular, $direccion, $especialidad, $fechaNac, $fechaContrato, $sueldoEmpleado, $dni, $idReportes, $idRol, $idArea)
+    public function __construct($username, $clave, $confirmClave, $correo, $nombre, $apellidos, $celular, $direccion, $especialidad, $fecha, $dni, $id_area, $id_rol)
     {
         $this->username = $username;
         $this->clave = $clave;
@@ -32,13 +29,10 @@ class Medico
         $this->celular = $celular;
         $this->direccion = $direccion;
         $this->especialidad = $especialidad;
-        $this->fechaNac = $fechaNac;
-        $this->fechaContrato = $fechaContrato;
-        $this->sueldoEmpleado = $sueldoEmpleado;
+        $this->fecha = $fecha;
         $this->dni = $dni;
-        $this->idReportes = $idReportes;
-        $this->idRol = $idRol;
-        $this->idArea = $idArea;
+        $this->id_area = $id_area;
+        $this->id_rol = $id_rol;
     }
 
     public function crear()
@@ -51,14 +45,14 @@ class Medico
         $conexion = $conn->conectar();
 
         try {
-            // Insertar en la tabla User (sin cambios)
-            $sql_user = "INSERT INTO Users (Username, Clave, ConfirmClave, Correo, Id_rol) 
-                         VALUES ('$this->username', '$this->clave', '$this->confirmClave', '$this->correo', $this->idRol)";
+            // Insertar en la tabla User
+            $sql_user = "INSERT INTO User (Username, Clave, ConfirmClave, Correo, Id_rol) 
+                         VALUES ('$this->username', '$this->clave', '$this->confirmClave', '$this->correo', $this->id_rol)";
             $result_user = $conexion->exec($sql_user);
 
-            // Insertar en la tabla Perfil (con campos nuevos añadidos)
-            $sql_perfil = "INSERT INTO Perfiles  (Nombre, Apellidos, Celular, Direccion, Especialidad, FechaNac, FechaContrato, SueldoEmpleado, DNI, ID_Reportes, ID_Rol, ID_Area) 
-                           VALUES ('$this->nombre', '$this->apellidos', '$this->celular', '$this->direccion', '$this->especialidad', '$this->fechaNac', '$this->fechaContrato', $this->sueldoEmpleado, '$this->dni', $this->idReportes, $this->idRol, $this->idArea)";
+            // Insertar en la tabla Perfil
+            $sql_perfil = "INSERT INTO Perfil (Nombre, Apellidos, Celular, Direccion, Especialidad, Fecha, DNI, Id_Rol, Id_Area) 
+                           VALUES ('$this->nombre', '$this->apellidos', '$this->celular', '$this->direccion', '$this->especialidad', '$this->fecha', '$this->dni', $this->id_rol, $this->id_area)";
             $result_perfil = $conexion->exec($sql_perfil);
 
             $conn->cerrar();
@@ -68,7 +62,7 @@ class Medico
             } else {
                 return "Error al crear el médico.";
             }
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             return "Error al crear el médico: " . $e->getMessage();
         }
     }

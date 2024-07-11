@@ -26,4 +26,6 @@ echo "<script>
 alert('$resultado');
 window.location.href = 'dashboard.php';
 </script>";
+ 
+
 ?>

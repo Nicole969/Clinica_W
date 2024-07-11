@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once "controllers/UsuarioController.php";
 require_once "controllers/CitaController.php";
@@ -15,34 +16,18 @@ $citaController = new CitasController();
 $citas = $citaController->mostrar();
 $total_usuarios = $usuarioController->cantidadUser();
 
-$citasController = new $citaController();
-$citas = $citasController->mostrar();
-
-
-$areaController = new AreaController();
-$areas = $areaController->mostrarAreas();
-
-
-$servicioController = new ServicioController();
-$servicios = $servicioController->mostrarServicios();
-
-$medicamentoController = new MedicamentoController();
-$medicamentos  = $medicamentoController->mostrarMedicamentos();
-
-
-$tipoMedicamentoController = new TipoMedicamentoController();
-$tiposMedicamentos = $tipoMedicamentoController->mostrarTiposMedicamentos();
-
 session_start();
 
 if (!isset($_SESSION["id"])) {
     # SI LA SESION NO EXISTE TE MANDO AL LOGIN
     session_start();
     header("location: login.php");
+    exit();
 }
 
 if ($_SESSION["tipo"] == "paciente") {
     header("location: home.php");
+    exit();
 }
 
 ?>
@@ -66,7 +51,7 @@ require_once 'layout/nav.php';
                 <div class="mx-auto flex max-w-xs flex-col gap-y-4">
                     <dt class="text-base leading-7 text-gray-600">Usuarios registrados</dt>
 
-
+                    
                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"><?php echo $total_usuarios; ?></dd>
                 </div>
                 <div class="mx-auto flex max-w-xs flex-col gap-y-4">
@@ -329,10 +314,10 @@ require_once 'layout/nav.php';
                             ?>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap<?php echo $estadoClass ?>"><?php echo $cita["Estado"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Title"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Asunto"] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Descripcion"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Fecha_Cr"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Hora_Inicial"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Fecha"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Hora"] ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -342,11 +327,6 @@ require_once 'layout/nav.php';
         </div>
 
     </div>
-
-
-
-
-
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
