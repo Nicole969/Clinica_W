@@ -1,22 +1,4 @@
 <?php
-<<<<<<< HEAD
-session_start();
-
-// Verificar si el usuario es administrador
-if (!isset($_SESSION['id']) || $_SESSION['tipo'] != 'admin') {
-    die("Acceso denegado.");
-}
-
-require_once 'controllers/AreaController.php';
-require_once 'controllers/RoleController.php';
-
-$areaController = new AreaController();
-$areas = $areaController->mostrarAreas();
-
-$roleController = new RoleController();
-$roles = $roleController->mostrarRoles();
-?>
-=======
 // Incluir controladores necesarios
 require_once "models/Horarios.php";
 require_once "controllers/HorarioController.php";
@@ -68,7 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Error al guardar el horario.";
         }
-
     } elseif ($formulario == "tratamiento") {
         // Formulario de tratamiento
         $cantidad = $_POST['cantidad'];
@@ -100,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo ".";
         }
-    } elseif($formulario == 'historialc'){
+    } elseif ($formulario == 'historialc') {
         // Formulario de recetas
         // COMPLETAR FORMULARIOS
         $fecha = $_POST['fecha'];
@@ -124,6 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 <body class="">
     <?php
     require_once 'layout/header.php';
@@ -134,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="flex flex-col justify-between space-y-4">
             <!-- Div de Horarios -->
             <div class="p-6 max-w-full mx-4 mb-4">
-                <?php if ($_SESSION["tipo"] == "medico"): ?>
+                <?php if ($_SESSION["tipo"] == "medico") : ?>
                     <div class="flex items-center mb-4">
                         <h2 class="text-xl mr-4 text-black">Mis Horarios</h2>
                         <!-- Botón del formulario -->
@@ -142,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             Ingresar Horario
                         </div>
                     </div>
-                <?php else: ?>
+                <?php else : ?>
                     <h2 class="text-xl mb-4">Mis Horarios</h2>
                 <?php endif; ?>
 
@@ -152,8 +134,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <!-- Modal para cada horario -->
                         <div class="bg-white rounded-lg p-8 w-full sm:w-auto sm:mr-4 mb-4 relative border-blue-500 cursor-pointer transition transform hover:-translate-y-1">
                             <div class="flex flex-col items-start">
-                                <p class="text-md"><strong>Día:</strong> <?php echo $horario["diaSemana"]; ?></p>
-                                <p class="text-md"><?php echo $horario["horaInicio"] . ' - ' . $horario["horaFin"]; ?></p>
+                                <p class="text-md"><strong>Día:</strong> <?php echo $horario["DiaSemana"]; ?></p>
+                                <p class="text-md"><?php echo $horario["HoraInicio"] . ' - ' . $horario["HoraFin"]; ?></p>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -285,7 +267,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <label for="cantidad" class="text-sm font-semibold text-gray-600">Cantidad:</label>
                                     <input type="number" id="cantidad" name="cantidad" class="block w-full max-w-xs py-2 px-3 border
                                         border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                                        
+
                                     <label for="dosis" class="text-sm font-semibold text-gray-600">Dosis:</label>
                                     <input type="text" id="dosis" name="dosis" class="block w-full max-w-xs py-2 px-3 border
                                         border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
@@ -297,13 +279,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <input type="hidden" id="id_medico" name="id_medico" value="<?php echo $_SESSION["id"]; ?>">
 
                                     <input type="hidden" id="id_cita" name="id_cita" value="<?php echo $cita['ID_Cita']; ?>">
-                                    
+
                                     <div class="flex justify-center mt-8">
                                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md cursor-pointer transition transform hover:-translate-y-1">
                                             Guardar
                                         </button>
                                     </div>
-                                    
+
                                 </form>
                             </div>
                         </div>
@@ -321,11 +303,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                     <!-- Campo oculto para identificar el formulario -->
                                     <input type="hidden" name="formulario" value="recetas">
-                                    
+
                                     <label for="fecha" class="text-sm font-semibold text-gray-600">Fecha:</label>
                                     <input type="date" id="fecha" name="fecha" class="block w-full max-w-xs py-2 px-3 border
                                         border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                                    
+
                                     <label for="descripcion" class="text-sm font-semibold text-gray-600">Descripcion:</label>
                                     <input type="text" id="descripcion" name="descripcion" class="block w-full max-w-xs py-2 px-3 border
                                         border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
@@ -356,11 +338,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                     <!-- Campo oculto para identificar el formulario -->
                                     <input type="hidden" name="formulario" value="historialc">
-                                    
+
                                     <label for="fecha" class="text-sm font-semibold text-gray-600">Fecha:</label>
                                     <input type="date" id="fecha" name="fecha" class="block w-full max-w-xs py-2 px-3 border
                                         border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
-                                        
+
                                     <label for="altura" class="text-sm font-semibold text-gray-600">Altura:</label>
                                     <input type="text" id="altura" name="altura" class="block w-full max-w-xs py-2 px-3 border
                                         border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
@@ -401,9 +383,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     <?php endforeach; ?>
-                </div> 
+                </div>
             </div>
-            
+
         </div>
     </main>
 
@@ -421,7 +403,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
 
-         function mostrarFormularioHorario() {
+        function mostrarFormularioHorario() {
             var modal = document.getElementById('formularioHorarioModal');
             modal.style.display = 'flex'; // Mostrar el modal de horarios
         }
@@ -434,10 +416,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Función filtrar citas por estado
         function filtrarCitas(estado) {
             const citas = document.querySelectorAll('.cita-item');
-            
+
             citas.forEach(cita => {
                 const estadoCita = cita.querySelector('.rounded-md').textContent.trim();
-                
+
                 if ((estado === 'Pendiente' && estadoCita !== 'Pendiente') || (estado === 'Confirmado' && estadoCita !== 'Confirmado')) {
                     cita.style.display = 'none';
                 } else {
@@ -460,15 +442,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 filtroEstadoMenu.classList.add('hidden');
             }
         });
-        
     </script>
 
 </body>
 
->>>>>>> 9ade789d684f031daaeae0e5949a31f8bea32fef
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Nuevo Médico</title>
@@ -480,79 +461,81 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
 </head>
+
 <body class="bg-gray-100">
 
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-bold mb-6 text-center">Crear Nuevo Médico</h2>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-6 text-center">Crear Nuevo Médico</h2>
 
-        <form action="crear_medico.php" method="POST">
-            <div class="mb-4">
-                <label for="username" class="block text-gray-700">Nombre de Usuario:</label>
-                <input type="text" name="username" id="username" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
-            </div>
-            <div class="mb-4">
-                <label for="clave" class="block text-gray-700">Clave:</label>
-                <input type="password" name="clave" id="clave" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
-            </div>
-            <div class="mb-4">
-                <label for="confirmClave" class="block text-gray-700">Confirmar Clave:</label>
-                <input type="password" name="confirmClave" id="confirmClave" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
-            </div>
-            <div class="mb-4">
-                <label for="correo" class="block text-gray-700">Correo:</label>
-                <input type="email" name="correo" id="correo" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
-            </div>
-            <div class="mb-4">
-                <label for="nombre" class="block text-gray-700">Nombre:</label>
-                <input type="text" name="nombre" id="nombre" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
-            </div>
-            <div class="mb-4">
-                <label for="apellidos" class="block text-gray-700">Apellidos:</label>
-                <input type="text" name="apellidos" id="apellidos" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
-            </div>
-            <div class="mb-4">
-                <label for="celular" class="block text-gray-700">Celular:</label>
-                <input type="text" name="celular" id="celular" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
-            </div>
-            <div class="mb-4">
-                <label for="direccion" class="block text-gray-700">Dirección:</label>
-                <input type="text" name="direccion" id="direccion" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
-            </div>
-            <div class="mb-4">
-                <label for="especialidad" class="block text-gray-700">Especialidad:</label>
-                <input type="text" name="especialidad" id="especialidad" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
-            </div>
-            <div class="mb-4">
-                <label for="fecha" class="block text-gray-700">Fecha de Nacimiento:</label>
-                <input type="date" name="fecha" id="fecha" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
-            </div>
-            <div class="mb-4">
-                <label for="dni" class="block text-gray-700">DNI:</label>
-                <input type="text" name="dni" id="dni" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
-            </div>
-            <div class="mb-4">
-                <label for="area" class="block text-gray-700">Área:</label>
-                <select name="area" id="area" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
-                    <?php foreach ($areas as $area): ?>
-                        <option value="<?php echo $area['ID_Area']; ?>"><?php echo $area['Nombre']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="mb-4">
-                <label for="rol" class="block text-gray-700">Rol:</label>
-                <select name="rol" id="rol" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
-                    <?php foreach ($roles as $rol): ?>
-                        <option value="<?php echo $rol['ID_Rol']; ?>"><?php echo $rol['Cargo']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="text-center">
-                <input type="submit" value="Crear Médico" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-            </div>
-        </form>
+            <form action="crear_medico.php" method="POST">
+                <div class="mb-4">
+                    <label for="username" class="block text-gray-700">Nombre de Usuario:</label>
+                    <input type="text" name="username" id="username" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="clave" class="block text-gray-700">Clave:</label>
+                    <input type="password" name="clave" id="clave" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="confirmClave" class="block text-gray-700">Confirmar Clave:</label>
+                    <input type="password" name="confirmClave" id="confirmClave" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="correo" class="block text-gray-700">Correo:</label>
+                    <input type="email" name="correo" id="correo" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="nombre" class="block text-gray-700">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="apellidos" class="block text-gray-700">Apellidos:</label>
+                    <input type="text" name="apellidos" id="apellidos" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="celular" class="block text-gray-700">Celular:</label>
+                    <input type="text" name="celular" id="celular" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="direccion" class="block text-gray-700">Dirección:</label>
+                    <input type="text" name="direccion" id="direccion" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="especialidad" class="block text-gray-700">Especialidad:</label>
+                    <input type="text" name="especialidad" id="especialidad" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="fecha" class="block text-gray-700">Fecha de Nacimiento:</label>
+                    <input type="date" name="fecha" id="fecha" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="dni" class="block text-gray-700">DNI:</label>
+                    <input type="text" name="dni" id="dni" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="area" class="block text-gray-700">Área:</label>
+                    <select name="area" id="area" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                        <?php foreach ($areas as $area) : ?>
+                            <option value="<?php echo $area['ID_Area']; ?>"><?php echo $area['Nombre']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="rol" class="block text-gray-700">Rol:</label>
+                    <select name="rol" id="rol" class="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:border-blue-500" required>
+                        <?php foreach ($roles as $rol) : ?>
+                            <option value="<?php echo $rol['ID_Rol']; ?>"><?php echo $rol['Cargo']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <input type="submit" value="Crear Médico" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>

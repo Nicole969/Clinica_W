@@ -25,7 +25,7 @@ $notificaciones = $noti->obtenerNotificaciones();
                     <?php
                     case 'admin': ?>
                         <a href="dashboard" class="text-black px-4 py-2 rounded hover:text-blue-600">Panel</a>
-                        <a href="admedicos" class="text-black px-4 py-2 rounded hover:text-blue-600">Medicos</a>
+                        <a href="medicos" class="text-black px-4 py-2 rounded hover:text-blue-600">Medicos</a>
                         <a href="perfil" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
 
                         <div x-data="{ dropdownOpen: true }" class="relative my-32">
