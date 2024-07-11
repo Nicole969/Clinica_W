@@ -4,7 +4,7 @@ session_start();
 require_once "controllers/CitaController.php";
 
 $citaController = new CitasController();
-$citas = $citaController->mostrarMisCitas($_SESSION["id"]);
+$citas = $citaController->mostrarTodasC($_SESSION["id"]);
 
 
 if (!isset($_SESSION["id"])) {
@@ -26,22 +26,30 @@ require_once 'layout/header.php';
 require_once 'layout/nav.php';
 ?>
 
-<div class="p-2 bg-gray-100">
-    <h2>Historial de mis Citas</h2>
-    <table>
-        <thead>
+<div class="flex flex-col items-center">
+    <div class="w-1/2 bg-white p-6 rounded-lg mt-10">
+        <h2 class="text-2xl font-bold">Historial de mis Citas</h2>
+    </div>
+    <table class=" bg-white border border-gray-200">
+        <thead class="bg-gray-300">
             <tr>
-                <th>Asunto</th>
-                <th>Descripcion</th>
-                <th>Fecha</th>
+                <th class="py-2 px-4 border-b border-gray-400">Asunto</th>
+                <th class="py-2 px-4 border-b border-gray-400">Fecha</th>
+                <th class="py-2 px-4 border-b border-gray-400">Medico</th>
+                <th class="py-2 px-4 border-b border-gray-400">Hora</th>
+                <th cclass="py-2 px-4 border-b border-gray-400">Servicio</th>
+                <th class="py-2 px-4 border-b border-gray-400">Descripcion</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($citas as $cita) : ?>
-                <tr>
-                    <td><?php echo $cita["Asunto"] ?></td>
-                    <td><?php echo $cita["Descripcion"] ?></td>
-                    <td><?php echo $cita["Fecha"] ?></td>
+                <tr class="hover:bg-gray-100">
+                    <td class="py-2 px-4 border-b border-gray-300"><?php echo $cita["Title"] ?></td>
+                    <td class="py-2 px-4 border-b border-gray-300"><?php echo $cita["Start"] ?></td>
+                    <td class="py-2 px-4 border-b border-gray-300"><?php echo $cita["Medico"] ?></td>
+                    <td class="py-2 px-4 border-b border-gray-300"><?php echo $cita["Hora_Inicial"] ?></td>
+                    <td class="py-2 px-4 border-b border-gray-300"><?php echo $cita["Servicio"] ?></td>
+                    <td class="py-2 px-4 border-b border-gray-300"><?php echo $cita["Descripcion"] ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

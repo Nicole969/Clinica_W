@@ -21,4 +21,10 @@ class CitasController
         $citas = new Citas();
         $citas->crear($title,$start,$end,$color,$hora_inicial,$hora_final,$fecha_cr,$fecha_up,$descripcion,$estado,$id_paciente,$id_medico,$id_servicio);
     }
+    public function mostrarTodasC($id){
+        $citas = new Citas();
+        return $citas->mostrarTodasC($id);
+
+    }
+    
 }
