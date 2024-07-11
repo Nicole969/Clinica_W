@@ -1,21 +1,21 @@
 <?php
 
-require_once "config/Conn.php";
+require_once dirname(__DIR__) . "/config/Conn.php";
 
-class Horarios
+class Area
 {
-    private $diaS;
-    private $horaInicio;
-    private $horaFin;
-    private $id_user;
+    private $id_area;
+    private $nombre;
+    private $descripcion;
 
     public function mostrar()
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM Horarios";
+        $sql = "SELECT * FROM Area";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
     }
 }
+?>

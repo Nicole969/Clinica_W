@@ -1,13 +1,20 @@
 <?php
 
-require_once "config/Conn.php";
+require_once dirname(__DIR__) . "/config/Conn.php";
 
-class Roles
+class Role
 {
-    private $username;
-    private $clave;
-    private $tipo;
-    private $confirmclave;
     private $id_rol;
-    private $email;
+    private $cargo;
+
+    public function mostrar()
+    {
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+        $sql = "SELECT * FROM Roles";
+        $resultado = $conexion->query($sql);
+        $conn->cerrar();
+        return $resultado;
+    }
 }
+?>
