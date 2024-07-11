@@ -1,6 +1,6 @@
 <?php
 
-
+/*
 require_once "models/Notificaciones.php";
 
 class NotificacionController
@@ -13,4 +13,4 @@ class NotificacionController
         return $notificaciones;
     }
 
-}
+}*/

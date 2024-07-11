@@ -1,5 +1,5 @@
 <?php
-
+/*
 require_once "config/Conn.php";
 
 class Notificaciones
@@ -44,3 +44,4 @@ class Notificaciones
         return $notificaciones;
     }
 }
+*/

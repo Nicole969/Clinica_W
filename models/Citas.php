@@ -4,13 +4,20 @@ require_once "config/Conn.php";
 
 class Citas
 {
-    private $asunto;
+
+    private $title;
+    private $start;
+    private $end;
+    private $color;
+    private $hora_inicial;
+    private $hora_final;
+    private $fecha_cr;
+    private $fecha_up;
     private $descripcion;
-    private $fecha;
-    private $hora;
-    private $tiempo;
     private $estado;
-    private $id_user;
+    private $id_paciente;
+    private $id_medico;
+    private $id_servicio;
 
 
     public function mostrar()
@@ -44,14 +51,13 @@ class Citas
         return $resultados;
     }
 
-    public function crear($asunto, $descripcion, $fecha, $hora, $tiempo, $estado, $id_user)
+    public function crear($title, $start, $end, $color, $hora_inicial, $hora_final, $fecha_cr, $fecha_up, $descripcion, $estado, $id_paciente, $id_medico, $id_servicio)
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "INSERT INTO Citas(Asunto, Descripcion, Fecha, Hora, Tiempo, Estado, ID_Paciente) 
-            VALUES ('$asunto','$descripcion', '$fecha', '$hora', '$tiempo', '$estado', $id_user)";
+        $sql = "INSERT INTO Citas(Title,Start,End,Color,Hora_Inicial,Hora_Final,Fecha_Cr,Fecha_Up,Descripcion,Estado,ID_Paciente,ID_Medico,ID_Servicio) 
+            VALUES ('$title','$start','$end','$color','$hora_inicial','$hora_final','$fecha_cr','$fecha_up','$descripcion','$estado','$id_paciente','$id_medico','$id_servicio')";
         $resultado = $conexion->exec($sql);
-
         if ($resultado === false) {
             echo "Error al crear la cita";
         } else {
@@ -60,27 +66,38 @@ class Citas
         $conn->cerrar();
         return $resultado;
     }
-
-    // models/para ver las citas que tiene asignado cada medico
-    public function mostrarCitasMedico($id)
+    public function mostrarTodasC($id)
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
         $resultados = [];
-        
-        // Ejemplo de consulta SQL utilizando JOIN para obtener detalles del paciente y otros campos necesarios
-        $sql = "SELECT Citas.ID_Cita,Citas.Estado,Citas.Title, Citas.Hora_Inicial, Citas.Hora_Final, 
-        Citas.Descripcion, Citas.Estado, Citas.Start,
-        Pacientes.Username AS NombrePaciente, Pacientes.Correo AS CorreoPaciente
-        FROM Citas
-        INNER JOIN Users AS Pacientes ON Citas.ID_Paciente = Pacientes.ID_User
-        WHERE Citas.ID_Medico = ?";
-
+        $sql = "
+        SELECT 
+            c.Title, 
+            c.Start, 
+            u.Username AS Medico, 
+            c.Hora_Inicial, 
+            s.Servicio AS Servicio, 
+            c.Descripcion 
+        FROM 
+            Citas c
+        JOIN 
+            Users u ON c.ID_Medico = u.ID_User
+        JOIN 
+            Servicios s ON c.ID_Servicio = s.ID_Servicio
+        WHERE 
+            c.ID_Paciente = ? AND u.Tipo = 'medico'
+        ";
         $stmt = $conexion->prepare($sql);
+        if ($stmt === false) {
+            die("Error en la preparación de la consulta: " . $conexion->errorInfo()[2]);
+        }
 
+        $resultados = [];
         if ($stmt->execute([$id])) {
+            // Obtener los resultados
             while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $resultados[] = $fila;
+                $resultados[] = $fila; // Añadir cada usuario a la lista
             }
         } else {
             error_log('Error al ejecutar la consulta: ' . $stmt->errorInfo()[2]);
