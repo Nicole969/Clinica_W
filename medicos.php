@@ -3,7 +3,9 @@
 require_once "models/Horarios.php";
 require_once "controllers/HorarioController.php";
 require_once "controllers/CitaController.php";
-
+require_once "controllers/TratamientoController.php";
+require_once "controllers/RecetaController.php";
+require_once "controllers/HistorialClinicoController.php";
 
 // Iniciar sesión
 session_start();
@@ -29,24 +31,76 @@ $citasController = new CitasController();
 $citasMedico = $citasController->mostrarCitasMedico($id);
 
 
-// Formulario de horario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $diaSemana = $_POST['diaSemana'];
-    $horaInicio = $_POST['horaInicio'];
-    $horaFin = $_POST['horaFin'];
-    $Id_User = $_POST['id_user'];
+    // Diferenciar formularios
+    $formulario = $_POST['formulario'];
 
-    $horariosModel = new Horarios();
-    if ($horariosModel->crearHorario($diaSemana, $horaInicio, $horaFin, $Id_User)) {
-        // Redirigir para evitar la reenvío del formulario
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit;
-    } else {
-        echo "Error al guardar el horario.";
+    if ($formulario == "horario") {
+        // Formulario de horario
+        $diaSemana = $_POST['diaSemana'];
+        $horaInicio = $_POST['horaInicio'];
+        $horaFin = $_POST['horaFin'];
+        $Id_User = $_POST['id_user'];
+
+        $horariosModel = new Horarios();
+        if ($horariosModel->crearHorario($diaSemana, $horaInicio, $horaFin, $Id_User)) {
+            // Redirigir para evitar la reenvío del formulario
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            echo "Error al guardar el horario.";
+        }
+
+    } elseif ($formulario == "tratamiento") {
+        // Formulario de tratamiento
+        $cantidad = $_POST['cantidad'];
+        $dosis = $_POST['dosis'];
+        $duracion = $_POST['duracion'];
+        $id_medico = $_POST['id_medico'];
+        $id_cita = $_POST['id_cita'];
+
+        $tratamientoModel = new TratamientoController();
+        if ($tratamientoModel->agregar($cantidad, $dosis, $duracion, $id_medico, $id_cita)) {
+            // Redirigir para evitar la reenvío del formulario
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            echo ".";
+        }
+    } elseif ($formulario == "recetas") {
+        // Formulario de recetas
+        $fecha = $_POST['fecha'];
+        $descripcion = $_POST['descripcion'];
+        $id_user = $_POST['id_user'];
+        $id_cita = $_POST['id_cita'];
+
+        $recetaModel = new RecetaController();
+        if ($recetaModel->agregar($fecha, $descripcion, $id_user, $id_cita)) {
+            // Redirigir para evitar la reenvío del formulario
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            echo ".";
+        }
+    } elseif($formulario == 'historialc'){
+        // Formulario de recetas
+        // COMPLETAR FORMULARIOS
+        $fecha = $_POST['fecha'];
+        $descripcion = $_POST['descripcion'];
+        $id_user = $_POST['id_user'];
+        $id_cita = $_POST['id_cita'];
+
+        $historialModel = new HistorialClinicoController();
+        if ($historialModel->agregar($fecha, $altura, $peso, $alergias, $enfermedadesp, $observaciones, $descripcion, $id_user, $id_cita)) {
+            // Redirigir para evitar la reenvío del formulario
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            echo "E.";
+        }
     }
 }
 ?>
-
 <body class="">
     <?php
     require_once 'layout/header.php';
@@ -94,6 +148,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <form action="" method="post" class="space-y-4 mt-8">
                             <h2 class="text-2xl text-center text-gray-800 mb-8">Ingresar Horario</h2>
 
+                            <!-- Campo oculto para identificar el formulario -->
+                            <input type="hidden" name="formulario" value="horario">
                             <div class="flex flex-col space-y-2 items-center">
                                 <label for="diaSemana" class="text-sm font-semibold text-gray-600">Día de la Semana:</label>
                                 <select name="diaSemana" id="diaSemana" class="block w-full max-w-xs py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-center">
@@ -178,29 +234,181 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <p class="text-sm"><strong>Información:</strong> <?php echo $cita['Title']; ?> </p>
                                         <p class="text-sm"><strong>Descripción:</strong> <?php echo $cita['Descripcion']; ?> </p>
                                     </div>
-                                </div>
 
+                                    <div>
+                                        <!-- Botones para abrir modales -->
+                                        <button class="modal-button bg-blue-500 text-white py-2 px-4 rounded-lg" onclick="openModal('modal1<?php echo $cita['ID_Cita']; ?>')">Tratamiento</button>
+                                        <button class="modal-button bg-green-500 text-white py-2 px-4 rounded-lg" onclick="openModal('modal2<?php echo $cita['ID_Cita']; ?>')">Recetas</button>
+                                        <button class="modal-button bg-yellow-500 text-white py-2 px-4 rounded-lg" onclick="openModal('modal3<?php echo $cita['ID_Cita']; ?>')">Historial Clinico</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- Modal 1 -->
+                        <div id="modal1<?php echo $cita['ID_Cita']; ?>" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+                            <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-md relative">
+                                <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onclick="closeModal('modal1<?php echo $cita['ID_Cita']; ?>')">
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+
+                                <form action="" method="POST" class="space-y-4 mt-8">
+
+                                    <!-- Campo oculto para identificar el formulario -->
+                                    <input type="hidden" name="formulario" value="tratamiento">
+
+                                    <label for="cantidad" class="text-sm font-semibold text-gray-600">Cantidad:</label>
+                                    <input type="number" id="cantidad" name="cantidad" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                        
+                                    <label for="dosis" class="text-sm font-semibold text-gray-600">Dosis:</label>
+                                    <input type="text" id="dosis" name="dosis" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+                                    <label for="duracion" class="text-sm font-semibold text-gray-600">Duracion:</label>
+                                    <input type="text" id="duracion" name="duracion" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+                                    <input type="hidden" id="id_medico" name="id_medico" value="<?php echo $_SESSION["id"]; ?>">
+
+                                    <input type="hidden" id="id_cita" name="id_cita" value="<?php echo $cita['ID_Cita']; ?>">
+                                    
+                                    <div class="flex justify-center mt-8">
+                                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md cursor-pointer transition transform hover:-translate-y-1">
+                                            Guardar
+                                        </button>
+                                    </div>
+                                    
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Modal 2 -->
+                        <div id="modal2<?php echo $cita['ID_Cita']; ?>" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+                            <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-md relative">
+                                <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onclick="closeModal('modal2<?php echo $cita['ID_Cita']; ?>')">
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+
+                                <form action="" method="POST" class="space-y-4 mt-8">
+
+                                    <!-- Campo oculto para identificar el formulario -->
+                                    <input type="hidden" name="formulario" value="recetas">
+                                    
+                                    <label for="fecha" class="text-sm font-semibold text-gray-600">Fecha:</label>
+                                    <input type="date" id="fecha" name="fecha" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                    
+                                    <label for="descripcion" class="text-sm font-semibold text-gray-600">Descripcion:</label>
+                                    <input type="text" id="descripcion" name="descripcion" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+                                    <input type="hidden" id="id_user" name="id_user" value="<?php echo $_SESSION["id"]; ?>">
+
+                                    <input type="hidden" id="id_cita" name="id_cita" value="<?php echo $cita['ID_Cita']; ?>">
+
+                                    <div class="flex justify-center mt-8">
+                                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-md cursor-pointer transition transform hover:-translate-y-1">
+                                            Guardar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Modal 3 -->
+                        <div id="modal3<?php echo $cita['ID_Cita']; ?>" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+                            <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-md relative">
+                                <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onclick="closeModal('modal3<?php echo $cita['ID_Cita']; ?>')">
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+
+                                <form action="" method="POST" class="space-y-4 mt-8">
+
+                                    <!-- Campo oculto para identificar el formulario -->
+                                    <input type="hidden" name="formulario" value="historialc">
+                                    
+                                    <label for="fecha" class="text-sm font-semibold text-gray-600">Fecha:</label>
+                                    <input type="date" id="fecha" name="fecha" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                        
+                                    <label for="altura" class="text-sm font-semibold text-gray-600">Altura:</label>
+                                    <input type="text" id="altura" name="altura" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+                                    <label for="peso" class="text-sm font-semibold text-gray-600">Peso:</label>
+                                    <input type="text" id="peso" name="peso" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+                                    <label for="alergias" class="text-sm font-semibold text-gray-600">Alergias:</label>
+                                    <input type="text" id="alergias" name="alergias" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+                                    <label for="enfermedadesp" class="text-sm font-semibold text-gray-600">Enfermedades P:</label>
+                                    <input type="text" id="enfermedadesp" name="enfermedadesp" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+                                    <label for="observaciones" class="text-sm font-semibold text-gray-600">Observaciones:</label>
+                                    <input type="text" id="observaciones" name="observaciones" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+                                    <label for="descripcion" class="text-sm font-semibold text-gray-600">Descripcion:</label>
+                                    <input type="text" id="descripcion" name="descripcion" class="block w-full max-w-xs py-2 px-3 border
+                                        border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+
+                                    <input type="hidden" id="id_user" name="id_user" value="<?php echo $_SESSION["id"]; ?>">
+
+                                    <input type="hidden" id="id_cita" name="id_cita" value="<?php echo $cita['ID_Cita']; ?>">
+
+                                    <div class="flex justify-center mt-8">
+                                        <button type="submit" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded-md cursor-pointer transition transform hover:-translate-y-1">
+                                            Guardar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+
                     <?php endforeach; ?>
-                </div>
+                </div> 
             </div>
+            
         </div>
     </main>
 
     <script>
+        // Función para abrir modal
+        function openModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+        }
+
+        // Función para cerrar modal
+        function closeModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+        }
+
 
          function mostrarFormularioHorario() {
             var modal = document.getElementById('formularioHorarioModal');
-            modal.style.display = 'flex'; // Mostrar el modal
+            modal.style.display = 'flex'; // Mostrar el modal de horarios
         }
 
         function cerrarFormularioHorario() {
             var modal = document.getElementById('formularioHorarioModal');
-            modal.style.display = 'none'; // Ocultar el modal
+            modal.style.display = 'none'; // Ocultar el modal de horarios
         }
 
-        // Función para filtrar citas por estado
+        // Función filtrar citas por estado
         function filtrarCitas(estado) {
             const citas = document.querySelectorAll('.cita-item');
             

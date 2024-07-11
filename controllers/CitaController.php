@@ -29,5 +29,6 @@ class CitasController
         $citas = new Citas();
         return $citas->mostrarCitasMedico($id);
     }
+    
 
 }

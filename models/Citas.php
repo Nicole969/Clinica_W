@@ -88,5 +88,4 @@ class Citas
 
         return $resultados;
     }
-
 }
