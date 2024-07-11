@@ -7,11 +7,11 @@ require_once 'layout/header.php';
         <h4 class="text-center text-3xl mb-2 text-blue-600">Registro</h4>
 
         <form id="registerForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="space-y-4 flex flex-col items-center">
-            <div id="empty-fields-message" class="text-red-500 text-center hidden">Por favor, rellene todos los campos.</div>  
+            <div id="empty-fields-message" class="text-red-500 text-center hidden">Por favor, rellene todos los campos.</div>
 
             <div class="flex flex-col space-y-2">
                 <label class="text-center">Ingresar usuario:</label>
-                <input type="text" id="username"  name="username" class="w-full text-md px-5 py-2 rounded-md outline-none 
+                <input type="text" id="username" name="username" class="w-full text-md px-5 py-2 rounded-md outline-none 
                 border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-center" placeholder="Example">
             </div>
 
@@ -38,10 +38,10 @@ require_once 'layout/header.php';
                 border-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-center" placeholder="**************">
                 <i class="fa fa-eye absolute right-4 top-10 cursor-pointer" id="toggleConfirmPassword" style="color: black;"></i>
             </div>
-            
+
             <input type="submit" name="submit" value="Guardar" class="w-1/2 sm:w-1/2 py-2 text-lg rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200 cursor-pointer transition duration-300 transform hover:-translate-y-1">
 
-            <div class="text-center">¿Ya tienes una cuenta? <a href="login.php" class="text-blue-400 hover:text-blue-600">Ingresar</a></div>
+            <div class="text-center">¿Ya tienes una cuenta? <a href="login" class="text-blue-400 hover:text-blue-600">Ingresar</a></div>
         </form>
     </div>
 </div>
@@ -63,7 +63,7 @@ if (isset($_POST["submit"])) {
 <script>
     const togglePassword = document.getElementById('togglePassword');
     const password = document.getElementById('password');
-    togglePassword.addEventListener('click', function (e) {
+    togglePassword.addEventListener('click', function(e) {
         const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
         password.setAttribute('type', type);
         this.classList.toggle('fa-eye-slash');
@@ -71,7 +71,7 @@ if (isset($_POST["submit"])) {
 
     const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
     const confirmPassword = document.getElementById('confirmPassword');
-    toggleConfirmPassword.addEventListener('click', function (e) {
+    toggleConfirmPassword.addEventListener('click', function(e) {
         const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
         confirmPassword.setAttribute('type', type);
         this.classList.toggle('fa-eye-slash');
@@ -89,7 +89,7 @@ if (isset($_POST["submit"])) {
         return re.test(email);
     }
 
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('submit', function(e) {
         let valid = true;
 
         if (!username.value || !email.value || !password.value || !confirmPassword.value) {
@@ -118,6 +118,4 @@ if (isset($_POST["submit"])) {
 
         return valid;
     });
-
-    
 </script>

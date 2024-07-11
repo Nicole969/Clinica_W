@@ -14,19 +14,19 @@ $notificaciones = $noti->obtenerNotificaciones();
                 <?php
                 switch ($_SESSION["tipo"]) {
                     case 'paciente': ?>
-                        <a href="home.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Home</a>
-                        <a href="miscitas.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Mi citas</a>
-                        <a href="perfil.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
+                        <a href="home" class="text-black px-4 py-2 rounded hover:text-blue-600">Home</a>
+                        <a href="miscitas" class="text-black px-4 py-2 rounded hover:text-blue-600">Mi citas</a>
+                        <a href="perfil" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
                         <div>
-                            <a href="logout.php" class="bg-blue-600 text-white px-4 py-2 rounded-lg 
+                            <a href="logout" class="bg-blue-600 text-white px-4 py-2 rounded-lg 
                                 hover:bg-blue-700 block md:inline-block">Cerrar Sesión</a>
                         </div>
                         <?php break; ?>
                     <?php
                     case 'admin': ?>
-                        <a href="dashboard.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Panel</a>
-                        <a href="admedicos.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Medicos</a>
-                        <a href="perfil.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
+                        <a href="dashboard" class="text-black px-4 py-2 rounded hover:text-blue-600">Panel</a>
+                        <a href="admedicos" class="text-black px-4 py-2 rounded hover:text-blue-600">Medicos</a>
+                        <a href="perfil" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
 
                         <div x-data="{ dropdownOpen: true }" class="relative my-32">
                             <button @click="dropdownOpen = !dropdownOpen" id="notificationDropdown" class="relative z-10 block rounded-md bg-white p-2 focus:outline-none">
@@ -46,22 +46,22 @@ $notificaciones = $noti->obtenerNotificaciones();
                                         </a>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
-                                <a href="notificaciones.php" class="block px-4 py-2 text-sm capitalize bg-blue-500 text-white text-center
+                                <a href="notificaciones" class="block px-4 py-2 text-sm capitalize bg-blue-500 text-white text-center
                                             hover:bg-blue-200">
                                     VER TODAS</a>
                             </div>
 
                         </div>
                         <div>
-                            <a href="logout.php" class="bg-blue-600 text-white px-4 py-2 rounded-lg 
+                            <a href="logout" class="bg-blue-600 text-white px-4 py-2 rounded-lg 
                                 hover:bg-blue-700 block md:inline-block">Cerrar Sesión</a>
                         </div>
                         <?php break; ?>
                     <?php
                     default: ?>
-                        <a href="perfil.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
+                        <a href="perfil" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
                         <div>
-                            <a href="logout.php" class="bg-blue-600 text-white px-4 py-2 rounded-lg 
+                            <a href="logout" class="bg-blue-600 text-white px-4 py-2 rounded-lg 
                                 hover:bg-blue-700 block md:inline-block">Cerrar Sesión</a>
                         </div>
                 <?php break;
@@ -70,9 +70,9 @@ $notificaciones = $noti->obtenerNotificaciones();
             <?php
             } else { ?>
 
-                <a href="register.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Registro</a>
+                <a href="register" class="text-black px-4 py-2 rounded hover:text-blue-600">Registro</a>
                 <div>
-                    <a href="login.php" class="bg-blue-600 text-white px-4 py-2 rounded-lg 
+                    <a href="login" class="bg-blue-600 text-white px-4 py-2 rounded-lg 
                         hover:bg-blue-700 block md:inline-block focus:outline-none focus:ring-2 focus:ring-blue-200 cursor-pointer transition duration-300 transform hover:-translate-y-1">Iniciar Sesión</a>
                 </div>
 
