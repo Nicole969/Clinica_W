@@ -13,7 +13,7 @@ class HistorialC
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM historial_clinico";
+        $sql = "SELECT * FROM Historial_Clinico";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
