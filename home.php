@@ -1,8 +1,5 @@
 <?php
 
-require_once "controllers/UsuarioController.php";
-require_once "controllers/CitaController.php";
-
 session_start();
 
 if (!isset($_SESSION["id"])) {
@@ -13,130 +10,66 @@ if (!isset($_SESSION["id"])) {
 if ($_SESSION["tipo"] == "admin") {
     header("location: dashboard.php");
 }
-$id = $_SESSION["id"];
-$citasController = new CitasController();
-$vercita = $citasController->mostrarMisCitas($id);
 
-#home agregar cita,ver citas de esta semana, 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["asunto"])) {
-    $asunto = $_POST["asunto"];
-    $descripcion = $_POST["descripcion"];
-    $fecha = $_POST["fecha"];
-    $hora = $_POST["hora"];
-    $tiempo = $_POST["tiempo"];
-    $estado = $_POST["estado"];
-    $id_user = $_SESSION["id"]; // Asume que el ID del usuario está almacenado en la sesión
-
-    // Crea una instancia del controlador y llama al método agregar
-    $citasController = new CitasController();
-    $resultado = $citasController->agregar($asunto, $descripcion, $fecha, $hora,$tiempo, $estado, $id_user);
-    header('Location: home.php');
-    exit;
-}
 ?>
 
 <?php
 require_once 'layout/header.php';
 require_once 'layout/nav.php';
 ?>
-<div class="bg-gray-100 h-full">
-    <div class ="mx-auto max-w-7xl px-6 lg:px-8">
-        <!--AGREGAR CITA-->
-        <button onclick="mostrarFormulario()">Agendar Nueva Cita</button>
-            <dialog id = "formularioCita" class = "rounded-3xl border-2 " >
-                    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                        <!-- Botón de cierre -->
-                        <button onclick="cerrarFormulario()" style="float: right; font-size: 20px; line-height: 20px; cursor: pointer;">✕</button>
-                        <form action="" method="post">
-                            <div>
-                                <label for="asunto">Asunto:</label>
-                                <input type="text" id="asunto" name="asunto" required>
-                            </div>
-                            <div>
-                                <label for="descripcion">Descripción:</label>
-                                <textarea id="descripcion" name="descripcion" required></textarea>
-                            </div>
-                            <div>
-                                <label for="fecha">Fecha:</label>
-                                <input type="date" id="fecha" name="fecha" required>
-                            </div>
-                            <div>
-                                <label for="hora">Hora:</label>
-                                <input type="time" id="hora" name="hora" required>
-                            </div>
-                            <div>
-                                <label for="tiempo">Duración (en horas):</label>
-                                <input type="number" id="tiempo" name="tiempo" required min="1">
-                            </div>
-                            <div style = "display:none;">
-                                <label for="estado">Estado:</label>
-                                <select id="estado" name="estado" required>
-                                    <option value="Pendiente" selected>Pendiente</option>
-                                    
-                                </select>
-                            </div>
-                            <div>
-                                <button type="submit">Agregar Cita</button>
-                            </div>
-                        </form>
-                    </div>
-            </dialog>
-    <?php
 
-    ?>
-    
-        <section class="our-services">
-            <div class="container">
-                <div class="row">
-                    <br><br>
-                    <h1 style="text-align:center">Reserva una<b style="color:#0a58ca"> cita</b></h1>
-                    <br><br>
+<div class="bg-gray-200 p-8">
+    <!-- component -->
+    <div class="max-w-2xl mx-auto bg-white p-8 ">
+        <div>Agregando cita</div>
+        <form method="post" action=<?php echo $_SERVER["PHP_SELF"]; ?>>
+            <div class="grid gap-6 mb-6 lg:grid-cols-1">
+
+                <div>
+                    <label for="asunto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Asunto</label>
+                    <input name="asunto" type="text" id="asunto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+                            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 
+                            dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+                            dark:focus:border-blue-500" placeholder="ASUNTO" required>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id='calendar'></div>
-                    </div>
+
+                <div>
+                    <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Descripcion</label>
+                    <textarea name="descripcion" class="autoexpand tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full bg-gray-200 
+                        border border-gray-200 rounded focus:outline-none focus:bg-white focus:border-gray-500" id="message" type="text" placeholder="Message..."></textarea>
+                    <label for="message" class="absolute tracking-wide py-2 px-4 mb-4 opacity-0 leading-tight block top-0 left-0 cursor-text">Message...
+                    </label>
+                </div>
+
+            </div>
+            <div class="grid gap-6 mb-6 lg:grid-cols-2">
+                <div>
+                    <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Fecha</label>
+                    <input name="fecha" type="date" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
+                </div>
+                <div>
+                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hora</label>
+                    <input name="hora" type="time" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required>
                 </div>
             </div>
-            
-                    <?php
-                    
-                    $eventos = [];
 
-                    foreach ($vercita as $cita) {
-                        $eventos[] = [
-                            'Fecha' => $cita['Fecha'], // Año-Mes-Día
-                            'Hora' => $cita['Hora'], // Hora:Minuto
-                            'Descripcion' => $cita['Descripcion']
-                        ];
-                        
-                    }
-                    var_dump($eventos);
-                    
-                    ?>
-            </section>
+            <input type="submit" name="submit" class="w-full py-2.5 px-4 text-sm rounded text-black bg-sky-600 hover:bg-sky-700 focus:outline-none" value="Solicitar">
+        </form>
     </div>
 </div>
 
+<?php
+if (isset($_POST["submit"])) {
+    $asunto = $_POST["asunto"];
+    $descripcion = $_POST["descripcion"];
+    $fecha = $_POST["fecha"];
+    $hora = $_POST["hora"];
+    $tiempo = "21:20:00";
+    $estado = "pendiente";
+    $id_user = $_SESSION["id"];
 
-<script>
-    function mostrarFormulario() {
-        document.getElementById('formularioCita').showModal();
-    }
-    function cerrarFormulario() {
-    document.getElementById("formularioCita").close();
+    require_once "controllers/CitaController.php";
+    $cita = new CitasController();
+    $cita->agregar($asunto, $descripcion, $fecha, $hora, $tiempo, $estado, $id_user);
 }
-</script>
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
-<script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
-      });
-
-</script>
+?>

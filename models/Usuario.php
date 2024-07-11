@@ -26,7 +26,7 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT COUNT(*) as total FROM users";
+        $sql = "SELECT COUNT(*) as total FROM user";
         $stmt = $conexion->query($sql);
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         $conn->cerrar();
@@ -37,7 +37,7 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM users";
+        $sql = "SELECT * FROM user";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
@@ -47,9 +47,9 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT users.ID_User, users.Username, Roles.Cargo 
-                FROM users
-                JOIN Roles ON users.Id_rol = Roles.ID_Rol";
+        $sql = "SELECT user.ID_User, user.Username, roles.Cargo 
+                FROM user
+                JOIN roles ON user.Id_rol = roles.ID_Rol";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
@@ -60,7 +60,7 @@ class Usuario
         $conn = new Conn();
         $conexion = $conn->conectar();
         $resultados = [];
-        $sql = "SELECT * FROM users WHERE Tipo = ?";
+        $sql = "SELECT * FROM user WHERE tipo = ?";
         $stmt = $conexion->prepare($sql);
 
         // Vincular el parámetro 'tipo'
@@ -80,7 +80,7 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM users WHERE Correo = '$correo' ";
+        $sql = "SELECT * FROM user WHERE Correo = '$correo' ";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
@@ -90,8 +90,8 @@ class Usuario
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "INSERT INTO users(Username, Clave, ConfirmClave, Correo, ID_Rol, Tipo) 
-            VALUES ('$username', '$password', '$confirmarclave', '$correo', $id_rol, 'paciente')";
+        $sql = "INSERT INTO user(Username, Clave, ConfirmClave, Correo, id_rol) 
+            VALUES ('$username', '$password', '$confirmarclave', '$correo', $id_rol)";
         $result = $conexion->exec($sql);
 
         if ($result > 0) {

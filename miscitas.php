@@ -15,10 +15,7 @@ if (!isset($_SESSION["id"])) {
 if ($_SESSION["tipo"] == "admin") {
     header("location: dashboard.php");
 }
-//historialclinico
-//---enfermedades que podria tener, enfemedades posteriores, antes de la primera vez que saca cita (todos los medicos)
-//historial de citas
-//---sus cita pasadas, etc 
+
 ?>
 
 <?php

@@ -15,7 +15,7 @@ class Reportes
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM Reportes";
+        $sql = "SELECT * FROM reportes";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;

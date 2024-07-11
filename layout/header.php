@@ -8,10 +8,13 @@
     <style>
         /* Estilos adicionales */
         .servicio {
-            display: none; /* Inicialmente ocultar todos los servicios */
+            display: none;
+            /* Inicialmente ocultar todos los servicios */
         }
+
         .visible {
-            display: block !important; /* Mostrar servicios marcados como visibles */
+            display: block !important;
+            /* Mostrar servicios marcados como visibles */
         }
     </style>
 </head>

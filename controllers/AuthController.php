@@ -9,6 +9,7 @@ class AuthController
         $usuario = new Usuario();
         return $usuario->mostrar();
     }
+
     public function register($username, $password, $confirmarClave, $correo, $type)
     {
         $usuario = new Usuario();
@@ -33,7 +34,7 @@ class AuthController
             $usuario_nombre = $item["Username"];
             $correo = $item["Correo"];
             $password_bd = $item["ConfirmClave"];
-            $tipo = $item["Tipo"];
+            $tipo = $item["tipo"];
             $contador++;
         }
         if ($contador > 0) {
@@ -43,16 +44,16 @@ class AuthController
                 $_SESSION["usuario"] = $usuario_nombre;
                 $_SESSION["tipo"] = $tipo;
                 switch ($tipo) {
-                    case 'admin':
+                    case 'paciente':
                         # code...
-                        header("Location: dashboard.php");
+                        header("Location: home.php");
                         break;
                     case 'medico':
                         # code...
                         header("Location: medicos.php");
                         break;
                     default:
-                        header("Location: home.php");
+                        header("Location: dashboard.php");
                         # code...
                         break;
                 }

@@ -14,7 +14,7 @@ class Pagos
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM Pagos";
+        $sql = "SELECT * FROM pagos";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;

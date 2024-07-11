@@ -73,7 +73,7 @@ require_once 'layout/nav.php';
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $paciente["Username"] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $paciente["Correo"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $paciente["Tipo"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $paciente["tipo"] ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -98,7 +98,7 @@ require_once 'layout/nav.php';
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $medico["Username"] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $medico["Correo"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $medico["Tipo"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $medico["tipo"] ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -136,10 +136,10 @@ require_once 'layout/nav.php';
                             ?>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap<?php echo $estadoClass ?>"><?php echo $cita["Estado"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Title"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Asunto"] ?></td>
                                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Descripcion"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Fecha_Cr"] ?></td>
-                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Hora_Inicial"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Fecha"] ?></td>
+                                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $cita["Hora"] ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

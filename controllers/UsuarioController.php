@@ -53,7 +53,7 @@ class UsuarioController
                 session_start();
                 $_SESSION["id"] = $usuario_id;
                 $_SESSION["usuario"] = $usuario_nombre;
-                $_SESSION["Tipo"] = $tipo;
+                $_SESSION["tipo"] = $tipo;
                 header("Location: usuarioMostrar.php");
             } else {
                 echo "contraseña no valida";
