@@ -38,51 +38,51 @@ require_once 'layout/header.php';
 require_once 'layout/nav.php';
 ?>
 <div class="bg-gray-100 h-full">
-    <div class ="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <!--AGREGAR CITA-->
         <button onclick="mostrarFormulario()">Agendar Nueva Cita</button>
-            <dialog id = "formularioCita" class = "rounded-3xl border-2 " >
-                    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                        <!-- Botón de cierre -->
-                        <button onclick="cerrarFormulario()" style="float: right; font-size: 20px; line-height: 20px; cursor: pointer;">✕</button>
-                        <form action="" method="post">
-                            <div>
-                                <label for="asunto">Asunto:</label>
-                                <input type="text" id="asunto" name="asunto" required>
-                            </div>
-                            <div>
-                                <label for="descripcion">Descripción:</label>
-                                <textarea id="descripcion" name="descripcion" required></textarea>
-                            </div>
-                            <div>
-                                <label for="fecha">Fecha:</label>
-                                <input type="date" id="fecha" name="fecha" required>
-                            </div>
-                            <div>
-                                <label for="hora">Hora:</label>
-                                <input type="time" id="hora" name="hora" required>
-                            </div>
-                            <div>
-                                <label for="tiempo">Duración (en horas):</label>
-                                <input type="number" id="tiempo" name="tiempo" required min="1">
-                            </div>
-                            <div style = "display:none;">
-                                <label for="estado">Estado:</label>
-                                <select id="estado" name="estado" required>
-                                    <option value="Pendiente" selected>Pendiente</option>
-                                    
-                                </select>
-                            </div>
-                            <div>
-                                <button type="submit">Agregar Cita</button>
-                            </div>
-                        </form>
+        <dialog id="formularioCita" class="rounded-3xl border-2 ">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <!-- Botón de cierre -->
+                <button onclick="cerrarFormulario()" style="float: right; font-size: 20px; line-height: 20px; cursor: pointer;">✕</button>
+                <form action="" method="post">
+                    <div>
+                        <label for="asunto">Asunto:</label>
+                        <input type="text" id="asunto" name="asunto" required>
                     </div>
-            </dialog>
-    <?php
+                    <div>
+                        <label for="descripcion">Descripción:</label>
+                        <textarea id="descripcion" name="descripcion" required></textarea>
+                    </div>
+                    <div>
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" id="fecha" name="fecha" required>
+                    </div>
+                    <div>
+                        <label for="hora">Hora:</label>
+                        <input type="time" id="hora" name="hora" required>
+                    </div>
+                    <div>
+                        <label for="tiempo">Duración (en horas):</label>
+                        <input type="number" id="tiempo" name="tiempo" required min="1">
+                    </div>
+                    <div style="display:none;">
+                        <label for="estado">Estado:</label>
+                        <select id="estado" name="estado" required>
+                            <option value="Pendiente" selected>Pendiente</option>
 
-    ?>
-    
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit">Agregar Cita</button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
+        <?php
+
+        ?>
+
         <section class="our-services">
             <div class="container">
                 <div class="row">
@@ -96,23 +96,22 @@ require_once 'layout/nav.php';
                     </div>
                 </div>
             </div>
-            
-                    <?php
-                    
-                    $eventos = [];
 
-                    foreach ($vercita as $cita) {
-                        $eventos[] = [
-                            'Fecha' => $cita['Fecha'], // Año-Mes-Día
-                            'Hora' => $cita['Hora'], // Hora:Minuto
-                            'Descripcion' => $cita['Descripcion']
-                        ];
-                        
-                    }
-                    var_dump($eventos);
-                    
-                    ?>
-            </section>
+            <?php
+
+            $eventos = [];
+
+            foreach ($vercita as $cita) {
+                $eventos[] = [
+                    'Fecha' => $cita['Fecha'], // Año-Mes-Día
+                    'Hora' => $cita['Hora'], // Hora:Minuto
+                    'Descripcion' => $cita['Descripcion']
+                ];
+            }
+            var_dump($eventos);
+
+            ?>
+        </section>
     </div>
 </div>
 
@@ -121,19 +120,18 @@ require_once 'layout/nav.php';
     function mostrarFormulario() {
         document.getElementById('formularioCita').showModal();
     }
+
     function cerrarFormulario() {
-    document.getElementById("formularioCita").close();
-}
+        document.getElementById("formularioCita").close();
+    }
 </script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
 <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+            initialView: 'dayGridMonth'
         });
         calendar.render();
-      });
-
+    });
 </script>

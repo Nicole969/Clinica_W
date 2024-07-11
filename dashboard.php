@@ -62,12 +62,12 @@ require_once 'layout/nav.php';
                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"><?php echo $total_usuarios; ?></dd>
                 </div>
                 <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                    <dt class="text-base leading-7 text-gray-600">Assets under holding</dt>
-                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">$119 trillion</dd>
+                    <dt class="text-base leading-7 text-gray-600">Medicamentos</dt>
+                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">4</dd>
                 </div>
                 <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                    <dt class="text-base leading-7 text-gray-600">New users annually</dt>
-                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">46,000</dd>
+                    <dt class="text-base leading-7 text-gray-600">Citas</dt>
+                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">3</dd>
                 </div>
             </dl>
         </div>
