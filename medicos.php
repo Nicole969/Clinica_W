@@ -86,6 +86,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Formulario de recetas
         // COMPLETAR FORMULARIOS
         $fecha = $_POST['fecha'];
+        $altura = $_POST['altura'];
+        $peso = $_POST['peso'];
+        $alergias = $_POST['alergias'];
+        $enfermedadesp = $_POST['enfermedadesp'];
+        $observaciones = $_POST['observaciones'];
         $descripcion = $_POST['descripcion'];
         $id_user = $_POST['id_user'];
         $id_cita = $_POST['id_cita'];
