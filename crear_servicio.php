@@ -7,7 +7,7 @@ if (!isset($_SESSION['id']) || $_SESSION['tipo'] != 'admin') {
     die("Acceso denegado.");
 }
 
-// Obtener datos del formulario
+// Obtener datos del formulario aaaaaaaa
 $servicio = $_POST['servicio'];
 $descripcion = $_POST['descripcion'];
 $costo = $_POST['costo'];
