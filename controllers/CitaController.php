@@ -10,6 +10,7 @@ class CitasController
         return $citas->mostrar();
     }
 
+    // Citas de los pacientes
     public function mostrarMisCitas($id)
     {
         $citas = new Citas();
@@ -21,4 +22,13 @@ class CitasController
         $citas = new Citas();
         $citas->crear($asunto, $descripcion, $fecha, $hora, $tiempo, $estado, $id_user);
     }
+
+    // Citas de los medicos
+    public function mostrarCitasMedico($id)
+    {
+        $citas = new Citas();
+        return $citas->mostrarCitasMedico($id);
+    }
+    
+
 }

@@ -60,4 +60,32 @@ class Citas
         $conn->cerrar();
         return $resultado;
     }
+
+    // models/para ver las citas que tiene asignado cada medico
+    public function mostrarCitasMedico($id)
+    {
+        $conn = new Conn();
+        $conexion = $conn->conectar();
+        $resultados = [];
+        
+        // Ejemplo de consulta SQL utilizando JOIN para obtener detalles del paciente y otros campos necesarios
+        $sql = "SELECT Citas.ID_Cita,Citas.Estado,Citas.Title, Citas.Hora_Inicial, Citas.Hora_Final, 
+        Citas.Descripcion, Citas.Estado, Citas.Start,
+        Pacientes.Username AS NombrePaciente, Pacientes.Correo AS CorreoPaciente
+        FROM Citas
+        INNER JOIN Users AS Pacientes ON Citas.ID_Paciente = Pacientes.ID_User
+        WHERE Citas.ID_Medico = ?";
+
+        $stmt = $conexion->prepare($sql);
+
+        if ($stmt->execute([$id])) {
+            while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $resultados[] = $fila;
+            }
+        } else {
+            error_log('Error al ejecutar la consulta: ' . $stmt->errorInfo()[2]);
+        }
+
+        return $resultados;
+    }
 }

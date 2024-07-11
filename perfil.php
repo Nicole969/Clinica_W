@@ -1,26 +1,33 @@
 <?php
 
 require_once "controllers/PerfilController.php";
-
+session_start();
 $perfilController = new PerfilController();
 $perfiles = $perfilController->mostrarPerfiles();
 
+
+if (!isset($_SESSION["id"])) {
+    # SI LA SESION NO EXISTE TE MANDO AL LOGIN
+    session_start();
+    header("location: login.php");
+    exit();
+}
+
+if ($_SESSION["tipo"] == "paciente") {
+    header("location: home.php");
+    exit();
+}
+
+?>
+<?php
+require_once 'layout/header.php';
+require_once 'layout/nav.php';
 ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interfaz Clínica - Lista de Perfiles Médicos</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-</head>
 
-<body class="bg-gray-100">
-    <nav class="flex justify-center space-x-4 mb-6">
-        <a href="dashboard.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Panel</a>
-        <a href="admedicos.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Médicos</a>
-        <a href="perfil.php" class="text-black px-4 py-2 rounded hover:text-blue-600">Perfil</a>
-    </nav>
+
+
+<body>
 
 
     <div class="min-h-screen flex items-center justify-center bg-gray-100 py-6 px-4 sm:px-6 lg:px-8">

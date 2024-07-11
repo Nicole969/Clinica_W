@@ -12,10 +12,9 @@ class Area
     {
         $conn = new Conn();
         $conexion = $conn->conectar();
-        $sql = "SELECT * FROM Area";
+        $sql = "SELECT * FROM Areas";
         $resultado = $conexion->query($sql);
         $conn->cerrar();
         return $resultado;
     }
 }
-?>

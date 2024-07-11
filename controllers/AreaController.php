@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__DIR__) . "/models/Area.php";
 
-class AreaController
+class AreasController
 {
     public function mostrarAreas()
     {
@@ -9,4 +9,3 @@ class AreaController
         return $area->mostrar();
     }
 }
-?>

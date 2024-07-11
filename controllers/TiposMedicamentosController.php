@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__DIR__) . "/models/TiposMedicamentos.php";
 
-class TipoMedicamentoController
+class TiposMedicamentosController
 {
     public function crearTipoMedicamento($nomTipoMedi, $descripcion)
     {
@@ -33,5 +33,3 @@ class TipoMedicamentoController
         return $tipoMedicamento->eliminar($id);
     }
 }
-
-?>
